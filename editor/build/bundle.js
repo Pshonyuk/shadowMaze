@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/projects/shadowMaze/editor/assets";
+/******/ 	__webpack_require__.p = "F:\\Projects\\shadowMaze\\editor\\assets";
 /******/ 	// webpack-livereload-plugin
 /******/ 	(function() {
 /******/ 	  if (typeof window === "undefined") { return };
@@ -67,7 +67,7 @@
 	
 	
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(5) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 200px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 10px 0 0;\n      display: flex;\n      justify-content: space-around; }\n      .editor-container .left-navbar .main-actions a {\n        text-decoration: none;\n        color: #444;\n        display: inline-block;\n        transition: text-shadow .4s; }\n        .editor-container .left-navbar .main-actions a:hover {\n          text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      flex: 1;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #c4c4c4; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, color .4s;\n            transition-delay: .0s; }\n          .editor-container .left-navbar .sound-list li a .play:hover:before {\n            color: #C62828; }\n        .editor-container .left-navbar .sound-list li:hover .play:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n    .editor-container .left-navbar .objects-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      flex: 1;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .objects-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .objects-list li:hover {\n          background-color: #c4c4c4; }\n        .editor-container .left-navbar .objects-list li a {\n          text-decoration: none;\n          color: #222; }\n  .editor-container .map {\n    flex: 5;\n    margin-left: 5px;\n    background-color: #ffffff; }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(5) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #fff; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 200px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 10px 0 0;\n      display: flex;\n      justify-content: space-around; }\n      .editor-container .left-navbar .main-actions a {\n        text-decoration: none;\n        color: #444;\n        display: inline-block;\n        transition: text-shadow .4s; }\n        .editor-container .left-navbar .main-actions a:hover {\n          text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, color .4s;\n            transition-delay: .0s; }\n          .editor-container .left-navbar .sound-list li a .play:hover:before {\n            color: #C62828; }\n        .editor-container .left-navbar .sound-list li:hover .play:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n    .editor-container .left-navbar .objects-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .objects-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .objects-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .objects-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #fff; }\n", ""]);
 	
 	// exports
 
@@ -417,7 +417,123 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(4);
-	const App = {};
+	const MapEditor = __webpack_require__(8);
+	
+	new MapEditor({
+		mapContainer: document.querySelector(".map-container")
+	});
+
+/***/ },
+/* 7 */,
+/* 8 */
+/***/ function(module, exports) {
+
+	class MapEditor {
+		static get defaults(){
+			return {
+				mapContainer: null,
+				columns: 20,
+				rows: 20
+			}
+		}
+	
+		constructor(params = {}){
+			this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
+	
+			this
+				._createCanvas()
+				._generateEditorData()
+				._renderGrid();
+		}
+	
+		get mapContainer(){
+			return this._params.mapContainer;
+		}
+	
+		get columns(){
+			return this._params.columns;
+		}
+	
+		set columns(val){
+			this._params.columns = val;
+			this._renderGrid();
+		}
+	
+		get rows(){
+			return this._params.rows;
+		}
+	
+		set rows(val){
+			this._params.rows = val;
+			this._renderGrid();
+		}
+	
+		get editorData(){
+			return this._params.editorData;
+		}
+	
+		_generateEditorData(){
+			const editorData = (this.editorData || (this._params.editorData = []));
+			return this;
+		}
+	
+		_createCanvas(){
+			const cnv = this._cnv = document.createElement("canvas"),
+				cnvStyle = cnv.style,
+				mapContainer = this.mapContainer;
+	
+			cnv.width = mapContainer.clientWidth;
+			cnv.height = mapContainer.clientHeight;
+	
+			mapContainer.style.position = "relative";
+			cnvStyle.position = "absolute";
+			cnvStyle.left = "0";
+			cnvStyle.top = "0";
+	
+			mapContainer.appendChild(cnv);
+			this._ctx = cnv.getContext("2d");
+			return this;
+		}
+	
+		_renderGrid(){
+			const columns = this.columns,
+				rows = this.rows,
+				cnv = this._cnv,
+				ctx = this._ctx,
+				vCellSpace = (cnv.width - MapEditor.hCellSpacing) / columns,
+				hCellSpace = (cnv.height - MapEditor.vCellSpacing) / rows,
+				wCell = vCellSpace - MapEditor.hCellSpacing,
+				hCell = hCellSpace - MapEditor.vCellSpacing;
+	
+			ctx.fillStyle = MapEditor.bgColor;
+			ctx.fillRect(0, 0, cnv.width, cnv.height);
+			ctx.fillStyle = MapEditor.cellColor;
+	
+			for(let i = 0; i < columns; i++){
+				for(let j = 0; j < rows; j++){
+					let xPos = i * vCellSpace + MapEditor.vCellSpacing,
+						yPos = j * hCellSpace + MapEditor.hCellSpacing;
+					ctx.fillRect(xPos, yPos, wCell, hCell);
+				}
+			}
+			ctx.fill();
+	
+			return this;
+		}
+	}
+	
+	
+	
+	Object.assign(MapEditor, {
+		vCellSpacing: 1,
+		hCellSpacing: 1,
+		cellColor: "#ccc",
+		bgColor: "#222"
+	});
+	
+	
+	
+	module.exports = MapEditor;
 
 /***/ }
 /******/ ]);

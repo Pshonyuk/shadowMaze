@@ -9,6 +9,7 @@ body{
   margin: 0;
   padding: 0;
   height: 100vh;
+  background-color: #fff;
 }
 
 .editor-container{
@@ -66,6 +67,7 @@ body{
     }
 
     .sound-list{
+      flex: 1;
       @include list();
 
       li{
@@ -104,9 +106,9 @@ body{
     }
   }
 
-  .map{
+  .map-container{
     flex: 5;
-    margin-left: 5px;
-    background-color: #ffffff;
+    margin: 5px 10px;
+    background-color: #fff;
   }
 }
