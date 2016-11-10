@@ -1,6 +1,9 @@
 @import "fonts";
 @import "colors";
 @import "button";
+@import "custom-scroll";
+@import "list";
+
 
 body{
   margin: 0;
@@ -12,11 +15,16 @@ body{
   height: inherit;
   display: flex;
   flex-direction: row;
+  user-select: none;
 
   .left-navbar{
+    @include scrollbars(.5em, #222);
+    flex: 3;
+    min-width: 200px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    align-items: stretch;
     background-color: map_get($colors, 'navbar');
     box-shadow: 0 0 6px rgba(0, 0, 0, .4);
 
@@ -39,36 +47,65 @@ body{
       }
     }
 
+    .add-sound {
+      border-right-width: 0;
+      border-left-width: 0;
+    }
+
+    .title{
+      cursor: default;
+      color: map_get($colors, "mainFont");
+      font-size: 1.5em;
+      border: 3px solid map_get($colors, "mainFont");
+      border-right-width: 0;
+      border-left-width: 0;
+      padding: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      background-color: map_get($colors, "button");
+    }
+
     .sound-list{
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      flex-grow: 1;
+      @include list();
 
-      button span{
-        margin-left: 15px;
-      }
+      li{
+        padding: 5px 15px;
 
-      .items{
-        list-style: none;
-        margin: 0;
-        padding: 10px 15px;
+        a{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
 
-        li{
-          padding: 8px 0;
-          font-size: 18px;
+          .play:before{
+            content: "play_circle_filled";
+            font-family: "Material Icons";
+            font-size: 28px;
+            opacity: 0;
+            transition: opacity .1s, color .4s;
+            transition-delay: .0s;
+          }
 
-          a{
-            text-decoration: none;
-            color: map_get($colors, "mainFont");
+          .play:hover:before{
+            color: #C62828;
           }
         }
+
+        &:hover .play:before{
+          opacity: 1;
+          transition: opacity .6s, color .4s;
+          transition-delay: .5s, .0s;
+        }
       }
+
+    }
+
+    .objects-list{
+      @include list();
     }
   }
 
   .map{
-    flex-grow: 4;
+    flex: 5;
     margin-left: 5px;
     background-color: #ffffff;
   }

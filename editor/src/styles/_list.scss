@@ -1,0 +1,28 @@
+@import "colors";
+
+@mixin list() {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  li{
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: default;
+    transition: background-color .3s;
+
+    &:hover{
+      background-color: darken(map_get($colors, "navbar"), 3);
+    }
+
+    a{
+      text-decoration: none;
+      color: map_get($colors, "mainFont");
+    }
+  }
+}
