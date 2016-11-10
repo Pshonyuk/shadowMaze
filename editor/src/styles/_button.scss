@@ -1,0 +1,29 @@
+@import "colors";
+
+button{
+  border: 3px solid map_get($colors, "mainFont");
+  background: map_get($colors, "button");
+  overflow: hidden;
+  width: 100%;
+  outline: none;
+  display: flex;
+  align-items: center;
+  transition: background-color .3s;
+
+  span{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.5em;
+    color: #222;
+    display: block;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+  }
+
+  &:hover{
+    background-color: darken(map_get($colors, "button"), 4);
+    cursor: pointer;
+  }
+}

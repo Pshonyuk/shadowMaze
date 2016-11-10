@@ -1,0 +1,75 @@
+@import "fonts";
+@import "colors";
+@import "button";
+
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.editor-container{
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+
+  .left-navbar{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: map_get($colors, 'navbar');
+    box-shadow: 0 0 6px rgba(0, 0, 0, .4);
+
+    .main-actions{
+      list-style: none;
+      margin: 0;
+      padding: 10px 0 0;
+      display: flex;
+      justify-content: space-around;
+
+      a{
+        text-decoration: none;
+        color: map_get($colors, 'icon');
+        display: inline-block;
+        transition: text-shadow .4s;
+
+        &:hover{
+          text-shadow: 0 0 6px rgba(0,0,0,.4);
+        }
+      }
+    }
+
+    .sound-list{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+
+      button span{
+        margin-left: 15px;
+      }
+
+      .items{
+        list-style: none;
+        margin: 0;
+        padding: 10px 15px;
+
+        li{
+          padding: 8px 0;
+          font-size: 18px;
+
+          a{
+            text-decoration: none;
+            color: map_get($colors, "mainFont");
+          }
+        }
+      }
+    }
+  }
+
+  .map{
+    flex-grow: 4;
+    margin-left: 5px;
+    background-color: #ffffff;
+  }
+}

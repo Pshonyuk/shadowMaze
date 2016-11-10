@@ -1,6 +1,19 @@
 const path = require("path");
 const webpack = require("webpack");
 const dev = process.NODE_ENV !== "production";
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+
+let plugins = [
+	new webpack.optimize.OccurenceOrderPlugin()
+];
+
+
+if(dev){
+	plugins.push( new LiveReloadPlugin({
+		appendScriptTag: true
+	}));
+}
+
 
 module.exports = {
 	entry: [
@@ -9,11 +22,10 @@ module.exports = {
 	],
 	output: {
 		path: path.join(__dirname, "build"),
-		filename: "bundle.js"
+		filename: "bundle.js",
+		publicPath: path.join(__dirname, "assets")
 	},
-	plugins: [
-		new webpack.optimize.OccurenceOrderPlugin()
-	],
+	plugins,
 	module: {
 		loaders: [
 			// {
@@ -37,6 +49,13 @@ module.exports = {
 				],
 				test: /\.json$/,
 				loader: "json"
+			},
+			{
+				exclude: [
+					path.resolve(__dirname, "node_modules")
+				],
+				test: /\.woff$/,
+				loader: "url"
 			}
 		]
 	},
