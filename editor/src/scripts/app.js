@@ -1,6 +1,6 @@
 require("../styles/main.scss");
 const MapEditor = require("./MapEditor");
 
-new MapEditor({
+window.mapEditor = new MapEditor({
 	mapContainer: document.querySelector(".map-container")
 });

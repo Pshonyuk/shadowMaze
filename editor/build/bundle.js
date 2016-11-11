@@ -55,7 +55,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(7);
+	module.exports = __webpack_require__(8);
 
 
 /***/ },
@@ -67,7 +67,7 @@
 	
 	
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(5) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 200px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 10px 0 0;\n      display: flex;\n      justify-content: space-around; }\n      .editor-container .left-navbar .main-actions a {\n        text-decoration: none;\n        color: #444;\n        display: inline-block;\n        transition: text-shadow .4s; }\n        .editor-container .left-navbar .main-actions a:hover {\n          text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, color .4s;\n            transition-delay: .0s; }\n          .editor-container .left-navbar .sound-list li a .play:hover:before {\n            color: #C62828; }\n        .editor-container .left-navbar .sound-list li:hover .play:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n    .editor-container .left-navbar .objects-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .objects-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .objects-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .objects-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(5) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 200px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 10px 0 0;\n      display: flex;\n      justify-content: space-around; }\n      .editor-container .left-navbar .main-actions a {\n        text-decoration: none;\n        color: #444;\n        display: inline-block;\n        transition: text-shadow .4s; }\n        .editor-container .left-navbar .main-actions a:hover {\n          text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, color .4s;\n            transition-delay: .0s; }\n          .editor-container .left-navbar .sound-list li a .play:hover:before {\n            color: #C62828; }\n        .editor-container .left-navbar .sound-list li:hover .play:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n    .editor-container .left-navbar .objects-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .objects-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .objects-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .objects-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n", ""]);
 	
 	// exports
 
@@ -414,160 +414,6 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const EventsController = __webpack_require__(8);
-	
-	
-	class MapEditor {
-		static get defaults() {
-			return {
-				mapContainer: null,
-				columns: 20,
-				rows: 20
-			}
-		}
-	
-		constructor(params = {}) {
-			this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
-			this
-				._createCanvas()
-				._positioningCanvas()
-				._attachEvents()
-				._generateEditorData()
-				._renderGrid();
-		}
-	
-		get mapContainer() {
-			return this._params.mapContainer;
-		}
-	
-		get columns() {
-			return this._params.columns;
-		}
-	
-		set columns(val) {
-			this._params.columns = val;
-			this._renderGrid();
-		}
-	
-		get rows() {
-			return this._params.rows;
-		}
-	
-		set rows(val) {
-			this._params.rows = val;
-			this._renderGrid();
-		}
-	
-		get editorData() {
-			return this._params.editorData;
-		}
-	
-		_generateEditorData() {
-			const editorData = (this.editorData || (this._params.editorData = []));
-			return this;
-		}
-	
-		_attachEvents() {
-			let ec = this._eventsController = new EventsController();
-	
-			this._onResize = this._onResize.bind(this);
-			ec.add("resize", window, "resize", this._onResize);
-			return this;
-		}
-	
-		_createCanvas() {
-			const cnv = this._cnv = document.createElement("canvas");
-	
-			this.mapContainer.appendChild(cnv);
-			this._ctx = cnv.getContext("2d");
-			return this;
-		}
-	
-		_positioningCanvas(){
-			const cnv = this._cnv,
-				cnvStyle = cnv.style,
-				mapContainer = this.mapContainer,
-				wContainer = mapContainer.clientWidth,
-				hContainer = mapContainer.clientHeight,
-				sizeCanvas = Math.min(wContainer, hContainer);
-	
-			mapContainer.style.position = "relative";
-			cnvStyle.position = "absolute";
-			cnv.width = sizeCanvas;
-			cnv.height = sizeCanvas;
-			cnvStyle.left = (wContainer - sizeCanvas)/2 + "px";
-			cnvStyle.top = (hContainer - sizeCanvas)/2 + "px";
-			return this;
-		}
-	
-		_onResize(){
-			if(this._resizeRAFId != null) cancelAnimationFrame(this._resizeRAFId);
-			this._resizeRAFId = requestAnimationFrame(() => {
-				this._resizeRAFId = null;
-				this._positioningCanvas()._renderGrid();
-			});
-		}
-	
-		_renderGrid() {
-			const columns = this.columns,
-				rows = this.rows,
-				cnv = this._cnv,
-				ctx = this._ctx,
-				vCellSpace = (cnv.width + MapEditor.hCellSpacing) / columns,
-				hCellSpace = (cnv.height + MapEditor.vCellSpacing) / rows,
-				wCell = vCellSpace - MapEditor.hCellSpacing,
-				hCell = hCellSpace - MapEditor.vCellSpacing;
-	
-			ctx.fillStyle = MapEditor.bgColor;
-			ctx.fillRect(0, 0, cnv.width, cnv.height);
-			ctx.fillStyle = MapEditor.cellColor;
-	
-			for(let i = 0; i < columns; i++){
-				for(let j = 0; j < rows; j++){
-					let xPos = i * vCellSpace,
-						yPos = j * hCellSpace;
-					ctx.fillRect(xPos, yPos, wCell, hCell);
-				}
-			}
-	
-			ctx.fill();
-			return this;
-		}
-	
-		destroy(){
-			if(this._resizeRAFId != null) cancelAnimationFrame(this._resizeRAFId);
-			this._eventsController.destroy();
-		}
-	}
-	
-	
-	
-	Object.assign(MapEditor, {
-		vCellSpacing: 1,
-		hCellSpacing: 1,
-		cellColor: "#ccc",
-		bgColor: "#222"
-	});
-	
-	
-	
-	module.exports = MapEditor;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(4);
-	const MapEditor = __webpack_require__(6);
-	
-	new MapEditor({
-		mapContainer: document.querySelector(".map-container")
-	});
-
-/***/ },
-/* 8 */
 /***/ function(module, exports) {
 
 	class EventsController {
@@ -614,6 +460,223 @@
 	
 	
 	module.exports = EventsController;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const EventsController = __webpack_require__(6);
+	
+	
+	class MapEditor {
+		static get defaults() {
+			return {
+				mapContainer: null,
+				size: 20
+			}
+		}
+	
+		constructor(params = {}) {
+			this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
+			this
+				._createCanvas()
+				._positioningCanvas()
+				._attachEvents()
+				._generateEditorData();
+	
+			const render = () => {
+				this._renderGrid();
+				this._renderGridRAFId = requestAnimationFrame(render);
+			};
+			render();
+		}
+	
+		get mapContainer() {
+			return this._params.mapContainer;
+		}
+	
+		get size() {
+			return this._params.size;
+		}
+	
+		set size(val) {
+			this._params.size = val;
+			this._generateEditorData();
+		}
+	
+		get editorData() {
+			return this._params.editorData;
+		}
+	
+		set editorData(val) {
+			this._params.editorData = val;
+			if(val) this._params.size = val.length;
+			this._generateEditorData();
+		}
+	
+		_generateEditorData() {
+			const editorData = (this.editorData || (this._params.editorData = [])),
+				size = this._params.size = Math.max(5, +this.size || 0);
+	
+			editorData.length = size;
+			for(let i = 0; i < size; i++){
+				if(!editorData[i]) editorData[i] = [];
+				editorData[i].length = size;
+				for(let j = 0; j < size; j++){
+					if(!editorData[i][j]){
+						editorData[i][j] = {};
+					}
+				}
+			}
+			return this;
+		}
+	
+		_attachEvents() {
+			const ec = this._eventsController = new EventsController();
+	
+			this._onResize = this._onResize.bind(this);
+			this._onMouseMove = this._onMouseMove.bind(this);
+	
+			ec.add("resize", window, "resize", this._onResize);
+			ec.add("mouseMove", window, "mousemove", this._onMouseMove);
+			return this;
+		}
+	
+		_createCanvas() {
+			const cnv = this._cnv = document.createElement("canvas");
+	
+			this.mapContainer.appendChild(cnv);
+			this._ctx = cnv.getContext("2d");
+			return this;
+		}
+	
+		_positioningCanvas(){
+			const cnv = this._cnv,
+				cnvStyle = cnv.style,
+				mapContainer = this.mapContainer,
+				wContainer = mapContainer.clientWidth,
+				hContainer = mapContainer.clientHeight,
+				size = this.size,
+				freeSpace = MapEditor.cellSpacing * (size - 1),
+				sizeCanvas = Math.floor((Math.min(wContainer, hContainer)  - freeSpace) / size) * size + freeSpace;
+	
+			mapContainer.style.position = "relative";
+			cnvStyle.position = "absolute";
+			cnv.width = sizeCanvas;
+			cnv.height = sizeCanvas;
+			cnvStyle.left = (wContainer - sizeCanvas) / 2 + "px";
+			cnvStyle.top = (hContainer - sizeCanvas) / 2 + "px";
+			return this;
+		}
+	
+		_getGridData(){
+			const cnv = this._cnv,
+				cnvW = cnv.width,
+				cnvH = cnv.height,
+				size = this.size,
+				cellSpacing = MapEditor.cellSpacing,
+				cellSize = Math.floor((cnvW - cellSpacing * (size - 1)) / size),
+				cellSpace = cellSpacing + cellSize;
+			return {
+				cnvW,
+				cnvH,
+				cellSize,
+				cellSpace,
+				cellSpacing
+			}
+		}
+	
+		_getCellByEvent(e){
+			const cnv = this._cnv,
+				pos = cnv.getBoundingClientRect(),
+				cnvW = cnv.width,
+				cnvH = cnv.height,
+				x = e.pageX - pos.left,
+				y = e.pageY - pos.top;
+	
+			if(x >= 0 && x <= cnvW && y >= 0 && y <= cnvH){
+				const gridData = this._getGridData(),
+					column = Math.floor(x / gridData.cellSpace),
+					leftRange = column * gridData.cellSpace,
+					rightRange = leftRange + gridData.cellSize;
+	
+				if(leftRange <= x && rightRange >= x){
+					const row = Math.floor(y / gridData.cellSpace),
+						topRange = row * gridData.cellSpace,
+						bottomRange = topRange + gridData.cellSize;
+	
+					if(topRange <= y && bottomRange >= y){
+						return { column, row }
+					}
+				}
+			}
+	
+			return null;
+		}
+	
+		_onResize(){
+			this._positioningCanvas();
+		}
+	
+		_onMouseMove(e){
+			this.hoverData = this._getCellByEvent(e);
+		}
+	
+		_renderGrid() {
+			const size = this.size,
+				ctx = this._ctx,
+				gridData = this._getGridData(),
+				cellSpace = gridData.cellSpace,
+				cellSize = gridData.cellSize;
+	
+			ctx.fillStyle = MapEditor.bgColor;
+			ctx.fillRect(0, 0, gridData.cnvW, gridData.cnvH);
+			ctx.fillStyle = MapEditor.cellColor;
+	
+			for(let i = 0; i < size; i++){
+				for(let j = 0; j < size; j++){
+					ctx.fillRect(j * cellSpace, i * cellSpace, cellSize, cellSize);
+				}
+			}
+	
+			if(this.hoverData){
+				const x = this.hoverData.column * cellSpace,
+					y = this.hoverData.row * cellSpace;
+				ctx.fillStyle = MapEditor.cellHoverColor;
+				ctx.fillRect(x, y, cellSize, cellSize);
+			}
+			return this;
+		}
+	
+		destroy(){
+			cancelAnimationFrame(this._renderGridRAFId);
+			this._eventsController.destroy();
+		}
+	}
+	
+	
+	
+	Object.assign(MapEditor, {
+		cellSpacing: 1,
+		cellColor: "#ccc",
+		cellHoverColor: "#bbb",
+		bgColor: "#777"
+	});
+	
+	
+	
+	module.exports = MapEditor;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(4);
+	const MapEditor = __webpack_require__(7);
+	
+	window.mapEditor = new MapEditor({
+		mapContainer: document.querySelector(".map-container")
+	});
 
 /***/ }
 /******/ ]);

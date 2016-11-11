@@ -10,6 +10,7 @@ body{
   padding: 0;
   height: 100vh;
   background-color: map_get($colors, "bg");
+  overflow: hidden;
 }
 
 .editor-container{

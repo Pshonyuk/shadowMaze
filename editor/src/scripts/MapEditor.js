@@ -5,8 +5,7 @@ class MapEditor {
 	static get defaults() {
 		return {
 			mapContainer: null,
-			columns: 20,
-			rows: 20
+			size: 20
 		}
 	}
 
@@ -16,46 +15,63 @@ class MapEditor {
 			._createCanvas()
 			._positioningCanvas()
 			._attachEvents()
-			._generateEditorData()
-			._renderGrid();
+			._generateEditorData();
+
+		const render = () => {
+			this._renderGrid();
+			this._renderGridRAFId = requestAnimationFrame(render);
+		};
+		render();
 	}
 
 	get mapContainer() {
 		return this._params.mapContainer;
 	}
 
-	get columns() {
-		return this._params.columns;
+	get size() {
+		return this._params.size;
 	}
 
-	set columns(val) {
-		this._params.columns = val;
-		this._renderGrid();
-	}
-
-	get rows() {
-		return this._params.rows;
-	}
-
-	set rows(val) {
-		this._params.rows = val;
-		this._renderGrid();
+	set size(val) {
+		this._params.size = val;
+		this._generateEditorData();
 	}
 
 	get editorData() {
 		return this._params.editorData;
 	}
 
+	set editorData(val) {
+		this._params.editorData = val;
+		if(val) this._params.size = val.length;
+		this._generateEditorData();
+	}
+
 	_generateEditorData() {
-		const editorData = (this.editorData || (this._params.editorData = []));
+		const editorData = (this.editorData || (this._params.editorData = [])),
+			size = this._params.size = Math.max(5, +this.size || 0);
+
+		editorData.length = size;
+		for(let i = 0; i < size; i++){
+			if(!editorData[i]) editorData[i] = [];
+			editorData[i].length = size;
+			for(let j = 0; j < size; j++){
+				if(!editorData[i][j]){
+					editorData[i][j] = {};
+				}
+			}
+		}
 		return this;
 	}
 
 	_attachEvents() {
-		let ec = this._eventsController = new EventsController();
+		const ec = this._eventsController = new EventsController();
 
 		this._onResize = this._onResize.bind(this);
+		this._onMouseMove = this._onMouseMove.bind(this);
+
 		ec.add("resize", window, "resize", this._onResize);
+		ec.add("mouseMove", window, "mousemove", this._onMouseMove);
 		return this;
 	}
 
@@ -73,53 +89,101 @@ class MapEditor {
 			mapContainer = this.mapContainer,
 			wContainer = mapContainer.clientWidth,
 			hContainer = mapContainer.clientHeight,
-			sizeCanvas = Math.min(wContainer, hContainer);
+			size = this.size,
+			freeSpace = MapEditor.cellSpacing * (size - 1),
+			sizeCanvas = Math.floor((Math.min(wContainer, hContainer)  - freeSpace) / size) * size + freeSpace;
 
 		mapContainer.style.position = "relative";
 		cnvStyle.position = "absolute";
 		cnv.width = sizeCanvas;
 		cnv.height = sizeCanvas;
-		cnvStyle.left = (wContainer - sizeCanvas)/2 + "px";
-		cnvStyle.top = (hContainer - sizeCanvas)/2 + "px";
+		cnvStyle.left = (wContainer - sizeCanvas) / 2 + "px";
+		cnvStyle.top = (hContainer - sizeCanvas) / 2 + "px";
 		return this;
 	}
 
-	_onResize(){
-		if(this._resizeRAFId != null) cancelAnimationFrame(this._resizeRAFId);
-		this._resizeRAFId = requestAnimationFrame(() => {
-			this._resizeRAFId = null;
-			this._positioningCanvas()._renderGrid();
-		});
+	_getGridData(){
+		const cnv = this._cnv,
+			cnvW = cnv.width,
+			cnvH = cnv.height,
+			size = this.size,
+			cellSpacing = MapEditor.cellSpacing,
+			cellSize = Math.floor((cnvW - cellSpacing * (size - 1)) / size),
+			cellSpace = cellSpacing + cellSize;
+
+		return {
+			cnvW,
+			cnvH,
+			cellSize,
+			cellSpace,
+			cellSpacing
+		}
 	}
 
-	_renderGrid() {
-		const columns = this.columns,
-			rows = this.rows,
-			cnv = this._cnv,
-			ctx = this._ctx,
-			vCellSpace = (cnv.width + MapEditor.hCellSpacing) / columns,
-			hCellSpace = (cnv.height + MapEditor.vCellSpacing) / rows,
-			wCell = vCellSpace - MapEditor.hCellSpacing,
-			hCell = hCellSpace - MapEditor.vCellSpacing;
+	_getCellByEvent(e){
+		const cnv = this._cnv,
+			pos = cnv.getBoundingClientRect(),
+			cnvW = cnv.width,
+			cnvH = cnv.height,
+			x = e.pageX - pos.left,
+			y = e.pageY - pos.top;
 
-		ctx.fillStyle = MapEditor.bgColor;
-		ctx.fillRect(0, 0, cnv.width, cnv.height);
-		ctx.fillStyle = MapEditor.cellColor;
+		if(x >= 0 && x <= cnvW && y >= 0 && y <= cnvH){
+			const gridData = this._getGridData(),
+				column = Math.floor(x / gridData.cellSpace),
+				leftRange = column * gridData.cellSpace,
+				rightRange = leftRange + gridData.cellSize;
 
-		for(let i = 0; i < columns; i++){
-			for(let j = 0; j < rows; j++){
-				let xPos = i * vCellSpace,
-					yPos = j * hCellSpace;
-				ctx.fillRect(xPos, yPos, wCell, hCell);
+			if(leftRange <= x && rightRange >= x){
+				const row = Math.floor(y / gridData.cellSpace),
+					topRange = row * gridData.cellSpace,
+					bottomRange = topRange + gridData.cellSize;
+
+				if(topRange <= y && bottomRange >= y){
+					return { column, row }
+				}
 			}
 		}
 
-		ctx.fill();
+		return null;
+	}
+
+	_onResize(){
+		this._positioningCanvas();
+	}
+
+	_onMouseMove(e){
+		this.hoverData = this._getCellByEvent(e);
+	}
+
+	_renderGrid() {
+		const size = this.size,
+			ctx = this._ctx,
+			gridData = this._getGridData(),
+			cellSpace = gridData.cellSpace,
+			cellSize = gridData.cellSize;
+
+		ctx.fillStyle = MapEditor.bgColor;
+		ctx.fillRect(0, 0, gridData.cnvW, gridData.cnvH);
+		ctx.fillStyle = MapEditor.cellColor;
+
+		for(let i = 0; i < size; i++){
+			for(let j = 0; j < size; j++){
+				ctx.fillRect(j * cellSpace, i * cellSpace, cellSize, cellSize);
+			}
+		}
+
+		if(this.hoverData){
+			const x = this.hoverData.column * cellSpace,
+				y = this.hoverData.row * cellSpace;
+			ctx.fillStyle = MapEditor.cellHoverColor;
+			ctx.fillRect(x, y, cellSize, cellSize);
+		}
 		return this;
 	}
 
 	destroy(){
-		if(this._resizeRAFId != null) cancelAnimationFrame(this._resizeRAFId);
+		cancelAnimationFrame(this._renderGridRAFId);
 		this._eventsController.destroy();
 	}
 }
@@ -127,10 +191,10 @@ class MapEditor {
 
 
 Object.assign(MapEditor, {
-	vCellSpacing: 1,
-	hCellSpacing: 1,
+	cellSpacing: 1,
 	cellColor: "#ccc",
-	bgColor: "#222"
+	cellHoverColor: "#bbb",
+	bgColor: "#777"
 });
 
 
