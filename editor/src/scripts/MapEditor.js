@@ -1,5 +1,8 @@
+const EventsController = require("./EventsController");
+
+
 class MapEditor {
-	static get defaults(){
+	static get defaults() {
 		return {
 			mapContainer: null,
 			columns: 20,
@@ -7,71 +10,95 @@ class MapEditor {
 		}
 	}
 
-	constructor(params = {}){
+	constructor(params = {}) {
 		this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
-
 		this
 			._createCanvas()
+			._positioningCanvas()
+			._attachEvents()
 			._generateEditorData()
 			._renderGrid();
 	}
 
-	get mapContainer(){
+	get mapContainer() {
 		return this._params.mapContainer;
 	}
 
-	get columns(){
+	get columns() {
 		return this._params.columns;
 	}
 
-	set columns(val){
+	set columns(val) {
 		this._params.columns = val;
 		this._renderGrid();
 	}
 
-	get rows(){
+	get rows() {
 		return this._params.rows;
 	}
 
-	set rows(val){
+	set rows(val) {
 		this._params.rows = val;
 		this._renderGrid();
 	}
 
-	get editorData(){
+	get editorData() {
 		return this._params.editorData;
 	}
 
-	_generateEditorData(){
+	_generateEditorData() {
 		const editorData = (this.editorData || (this._params.editorData = []));
 		return this;
 	}
 
-	_createCanvas(){
-		const cnv = this._cnv = document.createElement("canvas"),
-			cnvStyle = cnv.style,
-			mapContainer = this.mapContainer;
+	_attachEvents() {
+		let ec = this._eventsController = new EventsController();
 
-		cnv.width = mapContainer.clientWidth;
-		cnv.height = mapContainer.clientHeight;
+		this._onResize = this._onResize.bind(this);
+		ec.add("resize", window, "resize", this._onResize);
+		return this;
+	}
 
-		mapContainer.style.position = "relative";
-		cnvStyle.position = "absolute";
-		cnvStyle.left = "0";
-		cnvStyle.top = "0";
+	_createCanvas() {
+		const cnv = this._cnv = document.createElement("canvas");
 
-		mapContainer.appendChild(cnv);
+		this.mapContainer.appendChild(cnv);
 		this._ctx = cnv.getContext("2d");
 		return this;
 	}
 
-	_renderGrid(){
+	_positioningCanvas(){
+		const cnv = this._cnv,
+			cnvStyle = cnv.style,
+			mapContainer = this.mapContainer,
+			wContainer = mapContainer.clientWidth,
+			hContainer = mapContainer.clientHeight,
+			sizeCanvas = Math.min(wContainer, hContainer);
+
+		mapContainer.style.position = "relative";
+		cnvStyle.position = "absolute";
+		cnv.width = sizeCanvas;
+		cnv.height = sizeCanvas;
+		cnvStyle.left = (wContainer - sizeCanvas)/2 + "px";
+		cnvStyle.top = (hContainer - sizeCanvas)/2 + "px";
+		return this;
+	}
+
+	_onResize(){
+		if(this._resizeRAFId != null) cancelAnimationFrame(this._resizeRAFId);
+		this._resizeRAFId = requestAnimationFrame(() => {
+			this._resizeRAFId = null;
+			this._positioningCanvas()._renderGrid();
+		});
+	}
+
+	_renderGrid() {
 		const columns = this.columns,
 			rows = this.rows,
 			cnv = this._cnv,
 			ctx = this._ctx,
-			vCellSpace = (cnv.width - MapEditor.hCellSpacing) / columns,
-			hCellSpace = (cnv.height - MapEditor.vCellSpacing) / rows,
+			vCellSpace = (cnv.width + MapEditor.hCellSpacing) / columns,
+			hCellSpace = (cnv.height + MapEditor.vCellSpacing) / rows,
 			wCell = vCellSpace - MapEditor.hCellSpacing,
 			hCell = hCellSpace - MapEditor.vCellSpacing;
 
@@ -81,14 +108,19 @@ class MapEditor {
 
 		for(let i = 0; i < columns; i++){
 			for(let j = 0; j < rows; j++){
-				let xPos = i * vCellSpace + MapEditor.vCellSpacing,
-					yPos = j * hCellSpace + MapEditor.hCellSpacing;
+				let xPos = i * vCellSpace,
+					yPos = j * hCellSpace;
 				ctx.fillRect(xPos, yPos, wCell, hCell);
 			}
 		}
-		ctx.fill();
 
+		ctx.fill();
 		return this;
+	}
+
+	destroy(){
+		if(this._resizeRAFId != null) cancelAnimationFrame(this._resizeRAFId);
+		this._eventsController.destroy();
 	}
 }
 

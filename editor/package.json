@@ -13,7 +13,9 @@
     "toolbar": false,
     "frame": true,
     "width": 825,
-    "height": 570
+    "height": 570,
+    "min_width": 765,
+    "min_height": 565
   },
   "author": "V. Pshonyuk",
   "license": "MIT",

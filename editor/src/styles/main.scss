@@ -9,7 +9,7 @@ body{
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: #fff;
+  background-color: map_get($colors, "bg");
 }
 
 .editor-container{
@@ -109,6 +109,12 @@ body{
   .map-container{
     flex: 5;
     margin: 5px 10px;
-    background-color: #fff;
+    background-color: map_get($colors, "bg");
+    min-width: 545px;
+    min-height: 545px;
+
+    canvas{
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
   }
 }
