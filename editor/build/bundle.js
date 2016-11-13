@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/projects/shadowMaze/editor/assets";
+/******/ 	__webpack_require__.p = "F:\\Projects\\shadowMaze\\editor\\assets";
 /******/ 	// webpack-livereload-plugin
 /******/ 	(function() {
 /******/ 	  if (typeof window === "undefined") { return };
@@ -536,9 +536,14 @@
 	
 			this._onResize = this._onResize.bind(this);
 			this._onMouseMove = this._onMouseMove.bind(this);
+			this._onMouseDown = this._onMouseDown.bind(this);
+			this._onMouseUp = this._onMouseUp.bind(this);
 	
 			ec.add("resize", window, "resize", this._onResize);
 			ec.add("mouseMove", window, "mousemove", this._onMouseMove);
+			ec.add("mouseDown", window, "mousedown", this._onMouseDown);
+			ec.add("mouseUp", window, "mouseup", this._onMouseUp);
+			ec.add("contextMenu", window, "contextmenu", this._onContextMenu);
 			return this;
 		}
 	
@@ -577,6 +582,7 @@
 				cellSpacing = MapEditor.cellSpacing,
 				cellSize = Math.floor((cnvW - cellSpacing * (size - 1)) / size),
 				cellSpace = cellSpacing + cellSize;
+	
 			return {
 				cnvW,
 				cnvH,
@@ -618,8 +624,38 @@
 			this._positioningCanvas();
 		}
 	
+		_onContextMenu(e){
+			e.preventDefault();
+		}
+	
+		_onMouseDown(e){
+			if(e.button === 2){
+				const cellData = this._getCellByEvent(e);
+				this._mouseRightButton = true;
+				if(cellData) {
+					const cell = this.editorData[cellData.row][cellData.column];
+					e.preventDefault();
+					cell.track = !cell.track;
+				}
+			}
+		}
+	
+		_onMouseUp(e){
+			if(e.button === 2){
+				this._mouseRightButton = false;
+			}
+		}
+	
 		_onMouseMove(e){
-			this.hoverData = this._getCellByEvent(e);
+			const cellData = this._getCellByEvent(e),
+				hoverData = this.hoverData;
+	
+			if(this._mouseRightButton && cellData && (!hoverData || (hoverData.row !== cellData.row || hoverData.column !== cellData.column))){
+				const cell = this.editorData[cellData.row][cellData.column];
+				cell.track = !cell.track;
+			}
+	
+			this.hoverData = cellData;
 		}
 	
 		_renderGrid() {
@@ -627,14 +663,19 @@
 				ctx = this._ctx,
 				gridData = this._getGridData(),
 				cellSpace = gridData.cellSpace,
-				cellSize = gridData.cellSize;
+				cellSize = gridData.cellSize,
+				editorData = this.editorData;
 	
 			ctx.fillStyle = MapEditor.bgColor;
 			ctx.fillRect(0, 0, gridData.cnvW, gridData.cnvH);
-			ctx.fillStyle = MapEditor.cellColor;
 	
 			for(let i = 0; i < size; i++){
 				for(let j = 0; j < size; j++){
+					if(editorData[i][j].track){
+						ctx.fillStyle = MapEditor.trackColor;
+					}else{
+						ctx.fillStyle = MapEditor.cellColor;
+					}
 					ctx.fillRect(j * cellSpace, i * cellSpace, cellSize, cellSize);
 				}
 			}
@@ -642,8 +683,12 @@
 			if(this.hoverData){
 				const x = this.hoverData.column * cellSpace,
 					y = this.hoverData.row * cellSpace;
-				ctx.fillStyle = MapEditor.cellHoverColor;
-				ctx.fillRect(x, y, cellSize, cellSize);
+	
+				ctx.strokeStyle = MapEditor.hoverColor;
+				ctx.lineWidth = MapEditor.cellSpacing * 3;
+				ctx.beginPath();
+				ctx.rect(x, y, cellSize, cellSize);
+				ctx.stroke();
 			}
 			return this;
 		}
@@ -659,7 +704,8 @@
 	Object.assign(MapEditor, {
 		cellSpacing: 1,
 		cellColor: "#ccc",
-		cellHoverColor: "#bbb",
+		hoverColor: "#3F51B5",
+		trackColor: "#efefef",
 		bgColor: "#777"
 	});
 	
