@@ -1,4 +1,5 @@
-const EventsController = require("./EventsController");
+const EventsController = require("./EventsController"),
+	history = require("./history");
 
 
 class MapEditor {
@@ -21,6 +22,13 @@ class MapEditor {
 			this._renderGrid();
 			this._renderGridRAFId = requestAnimationFrame(render);
 		};
+
+		history
+			.pushState(this.editorData, "MapEditor")
+			.subscribe("MapEditor", (state) => {
+				this.editorData = state;
+			});
+
 		render();
 	}
 
@@ -168,7 +176,7 @@ class MapEditor {
 			if(cellData) {
 				const cell = this.editorData[cellData.row][cellData.column];
 				e.preventDefault();
-				cell.track = !cell.track;
+				cell.track = !e.ctrlKey;
 			}
 		}
 	}
@@ -176,16 +184,16 @@ class MapEditor {
 	_onMouseUp(e){
 		if(e.button === 2){
 			this._mouseRightButton = false;
+			history.pushState(this.editorData, "MapEditor");
 		}
 	}
 
 	_onMouseMove(e){
-		const cellData = this._getCellByEvent(e),
-			hoverData = this.hoverData;
+		const cellData = this._getCellByEvent(e);
 
-		if(this._mouseRightButton && cellData && (!hoverData || (hoverData.row !== cellData.row || hoverData.column !== cellData.column))){
+		if(this._mouseRightButton && cellData){
 			const cell = this.editorData[cellData.row][cellData.column];
-			cell.track = !cell.track;
+			cell.track = !e.ctrlKey;
 		}
 
 		this.hoverData = cellData;
@@ -214,13 +222,14 @@ class MapEditor {
 		}
 
 		if(this.hoverData){
-			const x = this.hoverData.column * cellSpace,
-				y = this.hoverData.row * cellSpace;
+			const lineWidth = MapEditor.cellSpacing * 3,
+				x = this.hoverData.column * cellSpace + lineWidth / 2,
+				y = this.hoverData.row * cellSpace + lineWidth / 2;
 
 			ctx.strokeStyle = MapEditor.hoverColor;
-			ctx.lineWidth = MapEditor.cellSpacing * 3;
+			ctx.lineWidth = lineWidth;
 			ctx.beginPath();
-			ctx.rect(x, y, cellSize, cellSize);
+			ctx.rect(x, y, cellSize - lineWidth, cellSize - lineWidth);
 			ctx.stroke();
 		}
 		return this;
@@ -237,7 +246,7 @@ class MapEditor {
 Object.assign(MapEditor, {
 	cellSpacing: 1,
 	cellColor: "#ccc",
-	hoverColor: "#3F51B5",
+	hoverColor: "#222",
 	trackColor: "#efefef",
 	bgColor: "#777"
 });
