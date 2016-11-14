@@ -2,37 +2,26 @@ const EventsController = require("./EventsController");
 
 
 module.exports = function () {
-	const _subscribes = Object.create(null),
-		ec = new EventsController();
+	const ec = new EventsController();
 	let uid = 0;
 
 	ec.add("history::popState", window, "popstate", (e) => {
-		const state = e.state,
-			handler = state && state.handlerName && _subscribes[state.handlerName];
-
-		if(handler){
-			handler.call(null, state.data);
+		const state = e.state;
+		if(state && state.action && state.data){
+			let stateEvent = new Event("changestate", {
+				bubbles: true
+			});
+			stateEvent.action = state.action;
+			stateEvent.state = state.data;
+			window.dispatchEvent(stateEvent);
 		}
 	});
 
 	return {
-		subscribe(name, callback){
-			if(_subscribes[name]){
-				throw new Error("Duplicate name.");
-			}
-			_subscribes[name] = callback;
-			return this;
-		},
-
-		unsubscribe(name){
-			delete _subscribes[name];
-			return this;
-		},
-
-		pushState(data, handlerName){
+		pushState(action, data= {}){
 			window.history.pushState({
-				data,
-				handlerName
+				action,
+				data
 			}, uid++);
 			return this;
 		},

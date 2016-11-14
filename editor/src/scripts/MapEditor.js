@@ -12,22 +12,18 @@ class MapEditor {
 
 	constructor(params = {}) {
 		this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
-		this
-			._createCanvas()
+
+		this._generateEditorData();
+		history.pushState("editorData", this.editorData);
+
+		this._createCanvas()
 			._positioningCanvas()
-			._attachEvents()
-			._generateEditorData();
+			._attachEvents();
 
 		const render = () => {
 			this._renderGrid();
 			this._renderGridRAFId = requestAnimationFrame(render);
 		};
-
-		history
-			.pushState(this.editorData, "MapEditor")
-			.subscribe("MapEditor", (state) => {
-				this.editorData = state;
-			});
 
 		render();
 	}
@@ -75,11 +71,13 @@ class MapEditor {
 	_attachEvents() {
 		const ec = this._eventsController = new EventsController();
 
+		this._onChangeState = this._onChangeState.bind(this);
 		this._onResize = this._onResize.bind(this);
 		this._onMouseMove = this._onMouseMove.bind(this);
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseUp = this._onMouseUp.bind(this);
 
+		ec.add("changeState", window, "changestate", this._onChangeState);
 		ec.add("resize", window, "resize", this._onResize);
 		ec.add("mouseMove", window, "mousemove", this._onMouseMove);
 		ec.add("mouseDown", window, "mousedown", this._onMouseDown);
@@ -161,6 +159,14 @@ class MapEditor {
 		return null;
 	}
 
+	_onChangeState(e){
+		switch (e.action){
+			case "editorData":
+				this.editorData = e.state;
+				break;
+		}
+	}
+
 	_onResize(){
 		this._positioningCanvas();
 	}
@@ -184,7 +190,7 @@ class MapEditor {
 	_onMouseUp(e){
 		if(e.button === 2){
 			this._mouseRightButton = false;
-			history.pushState(this.editorData, "MapEditor");
+			history.pushState("editorData", this.editorData);
 		}
 	}
 

@@ -479,22 +479,18 @@
 	
 		constructor(params = {}) {
 			this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
-			this
-				._createCanvas()
+	
+			this._generateEditorData();
+			history.pushState("editorData", this.editorData);
+	
+			this._createCanvas()
 				._positioningCanvas()
-				._attachEvents()
-				._generateEditorData();
+				._attachEvents();
 	
 			const render = () => {
 				this._renderGrid();
 				this._renderGridRAFId = requestAnimationFrame(render);
 			};
-	
-			history
-				.pushState(this.editorData, "MapEditor")
-				.subscribe("MapEditor", (state) => {
-					this.editorData = state;
-				});
 	
 			render();
 		}
@@ -542,11 +538,13 @@
 		_attachEvents() {
 			const ec = this._eventsController = new EventsController();
 	
+			this._onChangeState = this._onChangeState.bind(this);
 			this._onResize = this._onResize.bind(this);
 			this._onMouseMove = this._onMouseMove.bind(this);
 			this._onMouseDown = this._onMouseDown.bind(this);
 			this._onMouseUp = this._onMouseUp.bind(this);
 	
+			ec.add("changeState", window, "changestate", this._onChangeState);
 			ec.add("resize", window, "resize", this._onResize);
 			ec.add("mouseMove", window, "mousemove", this._onMouseMove);
 			ec.add("mouseDown", window, "mousedown", this._onMouseDown);
@@ -628,6 +626,14 @@
 			return null;
 		}
 	
+		_onChangeState(e){
+			switch (e.action){
+				case "editorData":
+					this.editorData = e.state;
+					break;
+			}
+		}
+	
 		_onResize(){
 			this._positioningCanvas();
 		}
@@ -651,7 +657,7 @@
 		_onMouseUp(e){
 			if(e.button === 2){
 				this._mouseRightButton = false;
-				history.pushState(this.editorData, "MapEditor");
+				history.pushState("editorData", this.editorData);
 			}
 		}
 	
@@ -726,13 +732,15 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
+	const storage = __webpack_require__(11),
+		MapEditor = __webpack_require__(7);
 	__webpack_require__(5);
 	__webpack_require__(10);
-	const MapEditor = __webpack_require__(7);
 	
-	window.mapEditor = new MapEditor({
+	
+	storage.setItem("mapEditor", new MapEditor({
 		mapContainer: document.querySelector(".map-container")
-	});
+	}));
 
 /***/ },
 /* 9 */
@@ -742,37 +750,26 @@
 	
 	
 	module.exports = function () {
-		const _subscribes = Object.create(null),
-			ec = new EventsController();
+		const ec = new EventsController();
 		let uid = 0;
 	
 		ec.add("history::popState", window, "popstate", (e) => {
-			const state = e.state,
-				handler = state && state.handlerName && _subscribes[state.handlerName];
-	
-			if(handler){
-				handler.call(null, state.data);
+			const state = e.state;
+			if(state && state.action && state.data){
+				let stateEvent = new Event("changestate", {
+					bubbles: true
+				});
+				stateEvent.action = state.action;
+				stateEvent.state = state.data;
+				window.dispatchEvent(stateEvent);
 			}
 		});
 	
 		return {
-			subscribe(name, callback){
-				if(_subscribes[name]){
-					throw new Error("Duplicate name.");
-				}
-				_subscribes[name] = callback;
-				return this;
-			},
-	
-			unsubscribe(name){
-				delete _subscribes[name];
-				return this;
-			},
-	
-			pushState(data, handlerName){
+			pushState(action, data= {}){
 				window.history.pushState({
-					data,
-					handlerName
+					action,
+					data
 				}, uid++);
 				return this;
 			},
@@ -798,6 +795,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const EventsController = __webpack_require__(1),
+		nwGui = nodeRequire('nw.gui'),
+		storage = __webpack_require__(11),
 		history = __webpack_require__(9),
 		rootEl = document.querySelector(".main-actions"),
 		ec = new EventsController();
@@ -812,10 +811,61 @@
 		history.forward();
 	});
 	
+	nwGui.App.registerGlobalHotKey(new nwGui.Shortcut({
+		key : "Ctrl+Z",
+		active : function() {
+			history.back();
+		}
+	}));
+	
+	// nwGui.App.registerGlobalHotKey(new nwGui.Shortcut({
+	// 	key : "Ctrl+Y",
+	// 	active : function() {
+	// 		history.forward();
+	// 	}
+	// }));
+	
+	
+	
 	//clear editorData
 	ec.add("editorData::clear", rootEl.querySelector(".clear"), "click", () => {
-		window.mapEditor.editorData = null;
+		const mapEditor = storage.getItem("mapEditor");
+		if(mapEditor){
+			mapEditor.editorData = null;
+		}
 	});
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	const _storage = Object.create(null);
+	
+	module.exports = {
+		setItem(key, value){
+			if(_storage[key]){
+				throw new Error(`Duplicate key "${ key }".`);
+			}
+			_storage[key] = value;
+			return this;
+		},
+	
+		getItem(key){
+			return _storage[key];
+		},
+	
+		removeItem(key){
+			delete _storage[key];
+			return this;
+		},
+	
+		clear(){
+			for(let key in _storage){
+				this.remove(key);
+			}
+			return this;
+		}
+	};
 
 /***/ }
 /******/ ]);
