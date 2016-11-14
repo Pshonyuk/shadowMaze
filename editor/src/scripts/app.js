@@ -1,6 +1,9 @@
+const storage = require("./storage"),
+	MapEditor = require("./MapEditor");
 require("../styles/main.scss");
-const MapEditor = require("./MapEditor");
+require("./actions");
 
-window.mapEditor = new MapEditor({
+
+storage.setItem("mapEditor", new MapEditor({
 	mapContainer: document.querySelector(".map-container")
-});
+}));

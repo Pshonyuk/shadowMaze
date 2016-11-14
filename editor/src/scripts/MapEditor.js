@@ -1,4 +1,5 @@
-const EventsController = require("./EventsController");
+const EventsController = require("./EventsController"),
+	history = require("./history");
 
 
 class MapEditor {
@@ -11,16 +12,19 @@ class MapEditor {
 
 	constructor(params = {}) {
 		this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
-		this
-			._createCanvas()
+
+		this._generateEditorData();
+		history.pushState("editorData", this.editorData);
+
+		this._createCanvas()
 			._positioningCanvas()
-			._attachEvents()
-			._generateEditorData();
+			._attachEvents();
 
 		const render = () => {
 			this._renderGrid();
 			this._renderGridRAFId = requestAnimationFrame(render);
 		};
+
 		render();
 	}
 
@@ -67,11 +71,13 @@ class MapEditor {
 	_attachEvents() {
 		const ec = this._eventsController = new EventsController();
 
+		this._onChangeState = this._onChangeState.bind(this);
 		this._onResize = this._onResize.bind(this);
 		this._onMouseMove = this._onMouseMove.bind(this);
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseUp = this._onMouseUp.bind(this);
 
+		ec.add("changeState", window, "changestate", this._onChangeState);
 		ec.add("resize", window, "resize", this._onResize);
 		ec.add("mouseMove", window, "mousemove", this._onMouseMove);
 		ec.add("mouseDown", window, "mousedown", this._onMouseDown);
@@ -153,6 +159,14 @@ class MapEditor {
 		return null;
 	}
 
+	_onChangeState(e){
+		switch (e.action){
+			case "editorData":
+				this.editorData = e.state;
+				break;
+		}
+	}
+
 	_onResize(){
 		this._positioningCanvas();
 	}
@@ -168,7 +182,7 @@ class MapEditor {
 			if(cellData) {
 				const cell = this.editorData[cellData.row][cellData.column];
 				e.preventDefault();
-				cell.track = !cell.track;
+				cell.track = !e.ctrlKey;
 			}
 		}
 	}
@@ -176,16 +190,16 @@ class MapEditor {
 	_onMouseUp(e){
 		if(e.button === 2){
 			this._mouseRightButton = false;
+			history.pushState("editorData", this.editorData);
 		}
 	}
 
 	_onMouseMove(e){
-		const cellData = this._getCellByEvent(e),
-			hoverData = this.hoverData;
+		const cellData = this._getCellByEvent(e);
 
-		if(this._mouseRightButton && cellData && (!hoverData || (hoverData.row !== cellData.row || hoverData.column !== cellData.column))){
+		if(this._mouseRightButton && cellData){
 			const cell = this.editorData[cellData.row][cellData.column];
-			cell.track = !cell.track;
+			cell.track = !e.ctrlKey;
 		}
 
 		this.hoverData = cellData;
@@ -214,13 +228,14 @@ class MapEditor {
 		}
 
 		if(this.hoverData){
-			const x = this.hoverData.column * cellSpace,
-				y = this.hoverData.row * cellSpace;
+			const lineWidth = MapEditor.cellSpacing * 3,
+				x = this.hoverData.column * cellSpace + lineWidth / 2,
+				y = this.hoverData.row * cellSpace + lineWidth / 2;
 
 			ctx.strokeStyle = MapEditor.hoverColor;
-			ctx.lineWidth = MapEditor.cellSpacing * 3;
+			ctx.lineWidth = lineWidth;
 			ctx.beginPath();
-			ctx.rect(x, y, cellSize, cellSize);
+			ctx.rect(x, y, cellSize - lineWidth, cellSize - lineWidth);
 			ctx.stroke();
 		}
 		return this;
@@ -237,7 +252,7 @@ class MapEditor {
 Object.assign(MapEditor, {
 	cellSpacing: 1,
 	cellColor: "#ccc",
-	hoverColor: "#3F51B5",
+	hoverColor: "#222",
 	trackColor: "#efefef",
 	bgColor: "#777"
 });
