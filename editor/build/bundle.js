@@ -704,7 +704,7 @@
 	Object.assign(MapEditor, {
 		cellSpacing: 1,
 		cellColor: "#ccc",
-		hoverColor: "#3F51B5",
+		hoverColor: "#1e1e1e",
 		trackColor: "#efefef",
 		bgColor: "#777"
 	});
