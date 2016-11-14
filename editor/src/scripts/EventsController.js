@@ -6,10 +6,9 @@ class EventsController {
 		this._events = Object.create(null);
 	}
 
-	add(namespace, el, type, handler) {
+	add(el, type, handler) {
 		el.addEventListener(type, handler, false);
-		this._events[namespace] || (this._events[namespace]  = []);
-		this._events[namespace].push({
+		(this._events[type] || (this._events[type] = [])).push({
 			el,
 			type,
 			handler
@@ -17,23 +16,21 @@ class EventsController {
 		return this;
 	}
 
-	remove(namespace) {
-		const events = this._events[namespace];
-		if(events){
+	remove(type) {
+		if(this._events[type]){
+			const events = this._events[type];
 			for(let event of events){
 				event.el.removeEventListener(event.type, event.handler);
 			}
-			delete this._events[namespace];
+			delete this._events[type];
 		}
 		return this;
 	}
 
 	destroy() {
-		let events = this._events;
+		const events = this._events;
 		for(let key in events){
-			if(events.hasOwnProperty(key)){
-				this.remove(key);
-			}
+			this.remove(key);
 		}
 		this._events = null;
 		return null;

@@ -19,7 +19,9 @@
   },
   "author": "V. Pshonyuk",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "mousetrap": "^1.6.0"
+  },
   "scripts": {
     "run": "nw ../editor"
   },

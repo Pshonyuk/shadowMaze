@@ -77,12 +77,13 @@ class MapEditor {
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseUp = this._onMouseUp.bind(this);
 
-		ec.add("changeState", window, "changestate", this._onChangeState);
-		ec.add("resize", window, "resize", this._onResize);
-		ec.add("mouseMove", window, "mousemove", this._onMouseMove);
-		ec.add("mouseDown", window, "mousedown", this._onMouseDown);
-		ec.add("mouseUp", window, "mouseup", this._onMouseUp);
-		ec.add("contextMenu", window, "contextmenu", this._onContextMenu);
+		ec.add(window, "changestate", this._onChangeState);
+		ec.add(window, "resize", this._onResize);
+		ec.add(window, "mousemove", this._onMouseMove);
+		ec.add(window, "mousedown", this._onMouseDown);
+		ec.add(window, "mouseup", this._onMouseUp);
+		ec.add(window, "contextmenu", this._onContextMenu);
+
 		return this;
 	}
 

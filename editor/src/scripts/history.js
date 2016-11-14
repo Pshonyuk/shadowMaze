@@ -3,9 +3,8 @@ const EventsController = require("./EventsController");
 
 module.exports = function () {
 	const ec = new EventsController();
-	let uid = 0;
 
-	ec.add("history::popState", window, "popstate", (e) => {
+	ec.add(window, "popstate", (e) => {
 		const state = e.state;
 		if(state && state.action && state.data){
 			let stateEvent = new Event("changestate", {
@@ -22,7 +21,7 @@ module.exports = function () {
 			window.history.pushState({
 				action,
 				data
-			}, uid++);
+			}, null);
 			return this;
 		},
 
