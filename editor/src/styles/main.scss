@@ -88,6 +88,11 @@ body{
             transition-delay: .0s;
           }
 
+          &.played .play:before{
+            content: "pause_circle_filled";
+            opacity: 1;
+          }
+
           .play:hover:before{
             color: #C62828;
           }

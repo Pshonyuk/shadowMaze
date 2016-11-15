@@ -1,11 +1,25 @@
-const _storage = Object.create(null);
+const _storage = Object.create(null),
+	objKeys = Object.prototype.keys,
+	hasOwn = Object.hasOwnProperty;
 
 module.exports = {
 	setItem(key, value){
-		if(_storage[key]){
-			throw new Error(`Duplicate key "${ key }".`);
+		let obj;
+		if(key && typeof key === "object"){
+			obj = key;
+		} else {
+			(obj = {})[key] = value;
 		}
-		_storage[key] = value;
+
+		for(let key in obj){
+			if(hasOwn.call(obj, key)){
+				if(_storage[key]){
+					throw new Error(`Duplicate key "${ key }".`);
+				}
+				_storage[key] = value;
+			}
+		}
+
 		return this;
 	},
 
@@ -14,14 +28,15 @@ module.exports = {
 	},
 
 	removeItem(key){
-		delete _storage[key];
+		let keys = Array.isArray(key) ? key : [ key ];
+		for(let key of keys){
+			delete _storage[key];
+		}
 		return this;
 	},
 
 	clear(){
-		for(let key in _storage){
-			this.remove(key);
-		}
+		this.remove(objKeys.call(_storage));
 		return this;
 	}
 };
