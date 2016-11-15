@@ -6,8 +6,8 @@ class EventsController {
 		this._events = Object.create(null);
 	}
 
-	add(el, type, handler) {
-		el.addEventListener(type, handler, false);
+	add(el, type, handler, phrase = false) {
+		el.addEventListener(type, handler, !!phrase);
 		(this._events[type] || (this._events[type] = [])).push({
 			el,
 			type,

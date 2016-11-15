@@ -74,34 +74,62 @@ body{
       li{
         padding: 5px 15px;
 
+
         a{
           display: flex;
           align-items: center;
           justify-content: space-between;
+          cursor: default;
 
           .play:before{
+            cursor: pointer;
             content: "play_circle_filled";
             font-family: "Material Icons";
             font-size: 28px;
             opacity: 0;
-            transition: opacity .1s, color .4s;
+            transition: opacity .1s, text-shadow .4s;
             transition-delay: .0s;
           }
+        }
 
-          &.played .play:before{
+        &:hover{
+          .play:before, .timeline{
+            opacity: 1;
+            transition: opacity .6s, color .4s;
+            transition-delay: .5s, .0s;
+          }
+        }
+
+        &.played{
+          .play:before{
             content: "pause_circle_filled";
             opacity: 1;
           }
 
-          .play:hover:before{
-            color: #C62828;
+          .timeline{
+            opacity: 1;
           }
         }
 
-        &:hover .play:before{
-          opacity: 1;
-          transition: opacity .6s, color .4s;
-          transition-delay: .5s, .0s;
+        .timeline{
+          cursor: pointer;
+          display: block;
+          width: 100%;
+          height: 5px;
+          opacity: 0;
+          transition: opacity .1s, color .4s;
+          transition-delay: .0s;
+          background-color: map_get($colors, "button");
+          border-radius: 3px;
+          position: relative;
+          float: left;
+
+          .progress{
+            display: block;
+            background-color: #222222;
+            height: 100%;
+            width: 0;
+          }
         }
       }
 

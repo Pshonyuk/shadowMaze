@@ -70,8 +70,8 @@
 			this._events = Object.create(null);
 		}
 	
-		add(el, type, handler) {
-			el.addEventListener(type, handler, false);
+		add(el, type, handler, phrase = false) {
+			el.addEventListener(type, handler, !!phrase);
 			(this._events[type] || (this._events[type] = [])).push({
 				el,
 				type,
@@ -207,7 +207,7 @@
 	
 	
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(10) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 200px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 10px 0 0;\n      display: flex;\n      justify-content: space-around; }\n      .editor-container .left-navbar .main-actions a {\n        text-decoration: none;\n        color: #444;\n        display: inline-block;\n        transition: text-shadow .4s; }\n        .editor-container .left-navbar .main-actions a:hover {\n          text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, color .4s;\n            transition-delay: .0s; }\n          .editor-container .left-navbar .sound-list li a.played .play:before {\n            content: \"pause_circle_filled\";\n            opacity: 1; }\n          .editor-container .left-navbar .sound-list li a .play:hover:before {\n            color: #C62828; }\n        .editor-container .left-navbar .sound-list li:hover .play:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n    .editor-container .left-navbar .objects-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .objects-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .objects-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .objects-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(10) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 200px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 10px 0 0;\n      display: flex;\n      justify-content: space-around; }\n      .editor-container .left-navbar .main-actions a {\n        text-decoration: none;\n        color: #444;\n        display: inline-block;\n        transition: text-shadow .4s; }\n        .editor-container .left-navbar .main-actions a:hover {\n          text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between;\n          cursor: default; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            cursor: pointer;\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .sound-list li:hover .play:before, .editor-container .left-navbar .sound-list li:hover .timeline {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .sound-list li.played .play:before {\n          content: \"pause_circle_filled\";\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li.played .timeline {\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li .timeline {\n          cursor: pointer;\n          display: block;\n          width: 100%;\n          height: 5px;\n          opacity: 0;\n          transition: opacity .1s, color .4s;\n          transition-delay: .0s;\n          background-color: #ebebeb;\n          border-radius: 3px;\n          position: relative;\n          float: left; }\n          .editor-container .left-navbar .sound-list li .timeline .progress {\n            display: block;\n            background-color: #222222;\n            height: 100%;\n            width: 0; }\n    .editor-container .left-navbar .objects-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .objects-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .objects-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .objects-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n", ""]);
 	
 	// exports
 
@@ -1871,7 +1871,8 @@
 
 	const EventsController = __webpack_require__(1),
 		fs = nodeRequire("fs"),
-		path = nodeRequire("path");
+		path = nodeRequire("path"),
+		helper = __webpack_require__(16);
 	
 	
 	class SoundList {
@@ -1889,6 +1890,9 @@
 					<span class="play"></span>
 					<audio src="${ path.join("file://", src, title) }"></audio>
 				</a>
+				<div class="timeline">
+					<span class="progress"></span>
+				</div>
 			</li>`
 		}
 	
@@ -1910,22 +1914,50 @@
 		}
 	
 		_onClick(e){
+			let timeline;
 			if(e.target.classList.contains("play")){
 				const currentAudio = this._activeAudio,
-					link = e.target.closest("a"),
-					audio = link.querySelector("audio");
+					audio = e.target.closest("li").querySelector("audio");
 	
-				if(currentAudio) {
-					currentAudio.pause();
-					currentAudio.currentTime = 0;
-					currentAudio.closest("a").classList.remove("played");
-					this._activeAudio = null;
-				}
-	
+				if(currentAudio) currentAudio.pause();
 				if(audio !== currentAudio){
 					audio.play();
-					link.classList.add("played");
-					this._activeAudio = audio;
+				}
+			} else if (timeline = e.target.closest(".timeline")){
+				const audio = e.target.closest("li").querySelector("audio"),
+					clickPos = e.pageX - helper.getOffset(timeline).left,
+					percent = clickPos / timeline.clientWidth;
+	
+				audio.currentTime = Math.round(audio.duration * percent);
+			}
+		}
+	
+		_onPlay(e){
+			const root = e.target.closest("li"),
+				audio = e.target.closest("li").querySelector("audio");
+	
+			root.classList.add("played");
+			this._activeAudio = audio;
+		}
+	
+		_onPause(e){
+			const root = e.target.closest("li");
+	
+			root.classList.remove("played");
+			this._activeAudio = null;
+		}
+	
+		_onTimeupdate(e){
+			const audio = e.target,
+				el = audio.closest("li").querySelector(".progress"),
+				duration =  audio.duration;
+	
+			if (duration > 0) {
+				const progress = (audio.currentTime / duration) * 100;
+				el.style.width = progress + "%";
+				if(progress === 100){
+					audio.pause();
+					audio.currentTime = 0;
 				}
 			}
 		}
@@ -1934,7 +1966,14 @@
 			const ec = this._ec = new EventsController();
 	
 			this._onClick = this._onClick.bind(this);
+			this._onTimeupdate = this._onTimeupdate.bind(this);
+			this._onPlay = this._onPlay.bind(this);
+			this._onPause = this._onPause.bind(this);
+	
 			ec.add(this.listContainer, "click", this._onClick);
+			ec.add(this.listContainer, "timeupdate", this._onTimeupdate, true);
+			ec.add(this.listContainer, "play", this._onPlay, true);
+			ec.add(this.listContainer, "pause", this._onPause, true);
 			return this;
 		}
 	
@@ -1969,11 +2008,7 @@
 		}
 	
 		destroy(){
-			if(this._activeAudio) {
-				this._activeAudio = null;
-				this._activeAudio.pause();
-			}
-	
+			if(this._activeAudio) this._activeAudio.pause();
 			this._ec.destroy();
 			this.listContainer.innerHTML = "";
 		}
@@ -2045,6 +2080,23 @@
 			listContainer: document.querySelector(".sound-list")
 		})
 	});
+
+/***/ },
+/* 15 */,
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		getOffset: (el) => {
+			const bodyRect = document.body.getBoundingClientRect(),
+				elRect = el.getBoundingClientRect();
+	
+			return {
+				top: elRect.top - bodyRect.top,
+				left: elRect.left - bodyRect.left
+			}
+		}
+	};
 
 /***/ }
 /******/ ]);

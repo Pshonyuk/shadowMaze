@@ -1,6 +1,7 @@
 const EventsController = require("./EventsController"),
 	fs = nodeRequire("fs"),
-	path = nodeRequire("path");
+	path = nodeRequire("path"),
+	helper = require("./helper");
 
 
 class SoundList {
@@ -18,6 +19,9 @@ class SoundList {
 				<span class="play"></span>
 				<audio src="${ path.join("file://", src, title) }"></audio>
 			</a>
+			<div class="timeline">
+				<span class="progress"></span>
+			</div>
 		</li>`
 	}
 
@@ -39,22 +43,50 @@ class SoundList {
 	}
 
 	_onClick(e){
+		let timeline;
 		if(e.target.classList.contains("play")){
 			const currentAudio = this._activeAudio,
-				link = e.target.closest("a"),
-				audio = link.querySelector("audio");
+				audio = e.target.closest("li").querySelector("audio");
 
-			if(currentAudio) {
-				currentAudio.pause();
-				currentAudio.currentTime = 0;
-				currentAudio.closest("a").classList.remove("played");
-				this._activeAudio = null;
-			}
-
+			if(currentAudio) currentAudio.pause();
 			if(audio !== currentAudio){
 				audio.play();
-				link.classList.add("played");
-				this._activeAudio = audio;
+			}
+		} else if (timeline = e.target.closest(".timeline")){
+			const audio = e.target.closest("li").querySelector("audio"),
+				clickPos = e.pageX - helper.getOffset(timeline).left,
+				percent = clickPos / timeline.clientWidth;
+
+			audio.currentTime = Math.round(audio.duration * percent);
+		}
+	}
+
+	_onPlay(e){
+		const root = e.target.closest("li"),
+			audio = e.target.closest("li").querySelector("audio");
+
+		root.classList.add("played");
+		this._activeAudio = audio;
+	}
+
+	_onPause(e){
+		const root = e.target.closest("li");
+
+		root.classList.remove("played");
+		this._activeAudio = null;
+	}
+
+	_onTimeupdate(e){
+		const audio = e.target,
+			el = audio.closest("li").querySelector(".progress"),
+			duration =  audio.duration;
+
+		if (duration > 0) {
+			const progress = (audio.currentTime / duration) * 100;
+			el.style.width = progress + "%";
+			if(progress === 100){
+				audio.pause();
+				audio.currentTime = 0;
 			}
 		}
 	}
@@ -63,7 +95,14 @@ class SoundList {
 		const ec = this._ec = new EventsController();
 
 		this._onClick = this._onClick.bind(this);
+		this._onTimeupdate = this._onTimeupdate.bind(this);
+		this._onPlay = this._onPlay.bind(this);
+		this._onPause = this._onPause.bind(this);
+
 		ec.add(this.listContainer, "click", this._onClick);
+		ec.add(this.listContainer, "timeupdate", this._onTimeupdate, true);
+		ec.add(this.listContainer, "play", this._onPlay, true);
+		ec.add(this.listContainer, "pause", this._onPause, true);
 		return this;
 	}
 
@@ -98,11 +137,7 @@ class SoundList {
 	}
 
 	destroy(){
-		if(this._activeAudio) {
-			this._activeAudio = null;
-			this._activeAudio.pause();
-		}
-
+		if(this._activeAudio) this._activeAudio.pause();
 		this._ec.destroy();
 		this.listContainer.innerHTML = "";
 	}
