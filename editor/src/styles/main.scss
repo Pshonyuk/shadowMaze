@@ -19,6 +19,10 @@ body{
   flex-direction: row;
   user-select: none;
 
+  input[type=file]{
+    display: none;
+  }
+
   .left-navbar{
     @include scrollbars(.5em, #222);
     flex: 3;
