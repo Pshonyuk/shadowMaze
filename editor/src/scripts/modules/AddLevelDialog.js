@@ -1,5 +1,4 @@
 const EventsController = require("../libs/EventsController");
-let uid = 0;
 
 
 class AddLevelDialog {
@@ -9,9 +8,8 @@ class AddLevelDialog {
 		}
 	}
 
-	static getModalTemplate(id){
+	static getModalContent(){
 		return `
-
 		`
 	}
 
@@ -28,10 +26,7 @@ class AddLevelDialog {
 	}
 
 	_createModal(){
-		const modalId = "add-level-dialog-" + uid++;
 
-		document.body.insertAdjacentHTML("beforeend", AddLevelDialog.getModalTemplate(modalId));
-		this._modal = document.getElementById(modalId);
 		return this;
 	}
 
@@ -44,11 +39,21 @@ class AddLevelDialog {
 	}
 
 	_onClick(){
-
+		vex.dialog.open({
+			message: 'What planet did the aliens come from?',
+			input: [
+				'<input name="username" type="text" placeholder="Username" required />',
+				'<input name="password" type="password" placeholder="Password" required />'
+			].join(''),
+			callback: function (value) {
+				console.log(value)
+			}
+		})
 	}
 
 	destroy(){
 		this._ec.destroy();
+		this._modal.destroy();
 		return null;
 	}
 }

@@ -4,6 +4,7 @@ const path = nodeRequire("path"),
 	ProjectManager = require("./ProjectManager");
 
 
+window.vex.defaultOptions.className = "vex-theme-os";
 window.projectManager = new ProjectManager({
 	modules: [
 		{

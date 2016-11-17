@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link type="text/css" rel="stylesheet" href="./node_modules/vex-js/dist/css/vex.css">
+    <link type="text/css" rel="stylesheet" href="./node_modules/vex-js/dist/css/vex-theme-os.css">
 </head>
 <body>
     <section class="editor-container">
@@ -49,6 +51,7 @@
         window.nodeRequire = require;
         require('nw.gui').Window.get().showDevTools();
     </script>
+    <script defer src="./node_modules/vex-js/dist/js/vex.combined.min.js"></script>
     <script defer src="./build/bundle.js"></script>
 </body>
 </html>

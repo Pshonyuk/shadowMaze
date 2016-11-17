@@ -21,7 +21,9 @@
   "license": "MIT",
   "dependencies": {
     "mousetrap": "^1.6.0",
-    "traverse": "^0.6.6"
+    "traverse": "^0.6.6",
+    "vex-dialog": "^1.0.6",
+    "vex-js": "^3.0.0"
   },
   "scripts": {
     "run": "nw ../editor"
