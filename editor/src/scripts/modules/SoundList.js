@@ -1,7 +1,7 @@
-const EventsController = require("./EventsController"),
+const EventsController = require("../EventsController"),
 	fs = nodeRequire("fs"),
 	path = nodeRequire("path"),
-	helper = require("./helper");
+	helper = require("../helper");
 
 
 class SoundList {
@@ -17,7 +17,7 @@ class SoundList {
 			<a href="#">
 				<span class="text">${ title }</span>
 				<span class="play"></span>
-				<audio src="${ path.join("file://", src, title) }"></audio>
+				<audio src="file://${ path.resolve(path.join(src, title)) }"></audio>
 			</a>
 			<div class="timeline">
 				<span class="progress"></span>

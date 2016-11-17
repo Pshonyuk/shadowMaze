@@ -29,16 +29,6 @@ Mousetrap.bind(["ctrl+y"], () => {
 
 
 
-//clear editorData
-ec.add(rootEl.querySelector(".clear"), "click", () => {
-	const mapEditor = storage.getItem("mapEditor");
-	if(mapEditor){
-		mapEditor.editorData = null;
-	}
-});
-
-
-
 //sound-file dialog
 ec.add(document.querySelector(".add-sound"), "click", () => {
 	const ev = new MouseEvent("click");

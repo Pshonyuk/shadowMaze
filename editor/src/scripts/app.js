@@ -1,19 +1,25 @@
 const path = nodeRequire("path"),
-	storage = require("./storage"),
-	MapEditor = require("./MapEditor"),
-	SoundList = require("./SoundList");
+	ProjectManager = require("./ProjectManager");
 
 require("../styles/main.scss");
-require("./actions");
+
+// require("./actions");
+// storage.setItem({
+// 	"mapEditor": new MapEditor({
+// 		mapContainer: document.querySelector(".map-container")
+// 	}),
 
 
-storage.setItem("gamePath", "/home/helmer/game");
-storage.setItem({
-	"mapEditor": new MapEditor({
-		mapContainer: document.querySelector(".map-container")
-	}),
-	"soundList": new SoundList({
-		sourcePath: path.join(storage.getItem("gamePath"), "source"),
-		listContainer: document.querySelector(".sound-list")
-	})
+
+window.projectManager = new ProjectManager({
+	modules: [
+		{
+			name: "soundList",
+			module: require("./modules/SoundList"),
+			params: {
+				listContainer: document.querySelector(".sound-list"),
+				sourcePath: ProjectManager.query("sourcePath")
+			}
+		}
+	]
 });
