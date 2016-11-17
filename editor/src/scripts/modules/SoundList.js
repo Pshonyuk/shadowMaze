@@ -1,7 +1,7 @@
-const EventsController = require("../EventsController"),
+const EventsController = require("../libs/EventsController"),
 	fs = nodeRequire("fs"),
 	path = nodeRequire("path"),
-	helper = require("../helper");
+	helper = require("../libs/helper");
 
 
 class SoundList {

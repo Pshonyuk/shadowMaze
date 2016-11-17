@@ -1,4 +1,4 @@
-const EventsController = require("./EventsController");
+const EventsController = require("./libs/EventsController");
 
 
 module.exports = function () {

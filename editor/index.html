@@ -6,13 +6,11 @@
 </head>
 <body>
     <section class="editor-container">
+        <a href="#" title="Exit" onclick="process.exit()" class="exit">
+            <i class="mi md-48">close</i>
+        </a>
         <nav class="left-navbar">
             <ul class="main-actions">
-                <li>
-                    <a href="#" title="Exit">
-                        <i class="mi md-36">close</i>
-                    </a>
-                </li>
                 <li>
                     <a href="#" title="Undo" class="undo">
                         <i class="mi md-36">undo</i>
@@ -24,8 +22,8 @@
                     </a>
                 </li>
             </ul>
-            <span class="title">Settings</span>
-            <ul class="objects-list">
+            <span class="title">Level settings</span>
+            <ul class="settings-list">
                 <li>
                     <a href="#" data-settings="general">General</a>
                 </li>
@@ -33,6 +31,11 @@
                     <a href="#" data-settings="cell">Cell</a>
                 </li>
             </ul>
+            <button class="add-level">
+                <i class="mi md-36">add</i>
+                <span>Add level</span>
+            </button>
+            <ul class="levels-list"></ul>
             <button class="add-sound">
                 <i class="mi md-36">add</i>
                 <span>Add sound</span>
@@ -46,6 +49,6 @@
         window.nodeRequire = require;
         require('nw.gui').Window.get().showDevTools();
     </script>
-    <script src="./build/bundle.js"></script>
+    <script defer src="./build/bundle.js"></script>
 </body>
 </html>

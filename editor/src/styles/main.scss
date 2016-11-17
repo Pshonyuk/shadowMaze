@@ -23,10 +23,24 @@ body{
     display: none;
   }
 
+  .exit{
+    position: absolute;
+    text-decoration: none;
+    color: #D50000;
+    transition: text-shadow .4s;
+    top: 0;
+    left: 0;
+    padding: 0;
+
+    &:hover{
+      text-shadow: 0 0 6px rgba(0,0,0,.4);
+    }
+  }
+
   .left-navbar{
     @include scrollbars(.5em, #222);
     flex: 3;
-    min-width: 200px;
+    min-width: 230px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
@@ -37,33 +51,28 @@ body{
     .main-actions{
       list-style: none;
       margin: 0;
-      padding: 10px 0 0;
+      padding: 7px 0 0;
       display: flex;
       width: 100%;
       justify-content: flex-end;
 
-      li:first-child{
-        position: absolute;
-        left: 0;
-      }
-
       li{
-        margin-left: 10px;
-      }
+        margin-right: 15px;
 
-      a{
-        text-decoration: none;
-        color: map_get($colors, 'icon');
-        display: inline-block;
-        transition: text-shadow .4s;
+        a{
+          text-decoration: none;
+          color: map_get($colors, 'icon');
+          display: inline-block;
+          transition: text-shadow .4s, color .4s;
 
-        &:hover{
-          text-shadow: 0 0 6px rgba(0,0,0,.4);
+          &:hover{
+            text-shadow: 0 0 6px rgba(0,0,0,.4);
+          }
         }
       }
     }
 
-    .add-sound {
+    .add-sound, .add-level {
       border-right-width: 0;
       border-left-width: 0;
     }
@@ -149,7 +158,12 @@ body{
 
     }
 
-    .objects-list{
+    .settings-list{
+      @include list();
+    }
+
+    .levels-list{
+      flex: 1;
       @include list();
     }
   }

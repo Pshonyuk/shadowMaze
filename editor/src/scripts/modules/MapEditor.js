@@ -1,5 +1,5 @@
-const EventsController = require("./EventsController"),
-	history = require("./history");
+const EventsController = require("../libs/EventsController"),
+	history = require("../history");
 
 
 class MapEditor {

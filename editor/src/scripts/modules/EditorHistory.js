@@ -1,6 +1,21 @@
-const EventsController = require("../EventsController");
+const EventsController = require("../libs/EventsController");
 
-
+// //history
+// ec.add(rootEl.querySelector(".undo"), "click", () => {
+// 	history.back();
+// });
+//
+// ec.add(rootEl.querySelector(".redo"), "click", () => {
+// 	history.forward();
+// });
+//
+// Mousetrap.bind(["ctrl+z"], () => {
+// 	history.back();
+// });
+//
+// Mousetrap.bind(["ctrl+y"], () => {
+// 	history.forward();
+// });
 module.exports = function () {
 	const ec = new EventsController();
 

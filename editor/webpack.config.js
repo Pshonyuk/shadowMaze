@@ -36,6 +36,10 @@ module.exports = {
 			// 		presets: ['es2015']
 			// 	}
 			// },
+			// {
+			// 	test: /\.css$/,
+			// 	loader: "style-loader!css-loader"
+			// },
 			{
 				include: [
 					path.resolve(__dirname, "src/styles")

@@ -27,9 +27,7 @@ class ProjectManager {
 		this._params = Object.assign({}, ProjectManager.defaults, params);
 		this.modules = new Map();
 
-		this
-			._prepareFileSystem()
-			._loadModules();
+		this._prepareFileSystem();
 	}
 
 	get workPath(){
@@ -48,6 +46,19 @@ class ProjectManager {
 		return this._params.modules || [];
 	}
 
+	get gameData(){
+		return this._gameData;
+	}
+
+	get levels(){
+		return this.gameData.levels;
+	}
+
+	set levels(lvs){
+		this.gameData.levels = lvs.slice(0);
+		this._updateGameData();
+	}
+
 	_execQueries(){
 		const self = this;
 
@@ -61,8 +72,7 @@ class ProjectManager {
 
 	_prepareFileSystem() {
 		const workPath = this.workPath,
-			sourcePath = this.sourcePath,
-			entryPoint = this.entryPoint;
+			sourcePath = this.sourcePath;
 
 		if(!fs.existsSync(workPath)) {
 			fs.mkdirSync(workPath);
@@ -72,29 +82,52 @@ class ProjectManager {
 			fs.mkdirSync(sourcePath);
 		}
 
-		if(!fs.existsSync(entryPoint)){
-			this._createEntryPoint();
-		} else {
-			this._updateGameData();
-		}
-
-		return this;
-	}
-
-	_createEntryPoint(){
-		fs.writeFile(this.entryPoint, JSON.stringify({levels: []}), (err) => {
-			if(err) {
-				console.error(err);
-				return;
-			}
-
-			this._updateGameData();
+		this._readGameData(() => {
+			this._loadModules();
 		});
 
 		return this;
 	}
 
 	_updateGameData(){
+		const ev = new Event("update-game-data", {
+			bubbles: true
+		});
+		ev.gameData = Object.assign({}, this.gameData);
+		document.dispatchEvent(ev);
+		this._writeGameData();
+		return this;
+	}
+
+	_readGameData(cb){
+		fs.readFile(this.entryPoint, (err, data) => {
+			const createException = (err) => {
+				console.error(err);
+				this._gameData = { levels: [] };
+				if(cb) cb.call(this, err);
+			};
+
+			if(err) {
+				createException(err);
+				return;
+			}
+
+			try {
+				this._gameData = JSON.parse(data);
+				if(cb) cb.call(this, null);
+			} catch (e) {
+				createException(e);
+			}
+		});
+		return this;
+	}
+
+	_writeGameData(cb){
+		fs.writeFile(this.entryPoint, this.gameData, (err) => {
+			if(err) console.error(err);
+			if(cb) cb.call(this, err);
+		});
+		return this;
 	}
 
 	_loadModules(){
