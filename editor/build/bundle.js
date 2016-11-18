@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "F:\\Projects\\shadowMaze\\editor\\assets";
+/******/ 	__webpack_require__.p = "/projects/shadowMaze/editor/assets";
 /******/ 	// webpack-livereload-plugin
 /******/ 	(function() {
 /******/ 	  if (typeof window === "undefined") { return };
@@ -150,7 +150,7 @@
 	
 	
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(7) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton.shadow-maze-btn {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button.shadow-maze-btn span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button.shadow-maze-btn:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container input[type=file] {\n    display: none; }\n  .editor-container .exit {\n    position: absolute;\n    text-decoration: none;\n    color: #D50000;\n    transition: text-shadow .4s;\n    top: 0;\n    left: 0;\n    padding: 0; }\n    .editor-container .exit:hover {\n      text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 230px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 7px 0 0;\n      display: flex;\n      width: 100%;\n      justify-content: flex-end; }\n      .editor-container .left-navbar .main-actions li {\n        margin-right: 15px; }\n        .editor-container .left-navbar .main-actions li a {\n          text-decoration: none;\n          color: #444;\n          display: inline-block;\n          transition: text-shadow .4s, color .4s; }\n          .editor-container .left-navbar .main-actions li a:hover {\n            text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound, .editor-container .left-navbar .add-level {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between;\n          cursor: default; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            cursor: pointer;\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .sound-list li:hover .play:before, .editor-container .left-navbar .sound-list li:hover .timeline {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .sound-list li.played .play:before {\n          content: \"pause_circle_filled\";\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li.played .timeline {\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li .timeline {\n          cursor: pointer;\n          display: block;\n          width: 100%;\n          height: 5px;\n          opacity: 0;\n          transition: opacity .1s, color .4s;\n          transition-delay: .0s;\n          background-color: #ebebeb;\n          border-radius: 3px;\n          position: relative;\n          float: left; }\n          .editor-container .left-navbar .sound-list li .timeline .progress {\n            display: block;\n            background-color: #222222;\n            height: 100%;\n            width: 0; }\n    .editor-container .left-navbar .settings-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .settings-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .settings-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .settings-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n    .editor-container .left-navbar .levels-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .levels-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .levels-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(7) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton.shadow-maze-btn {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button.shadow-maze-btn span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button.shadow-maze-btn:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container input[type=file] {\n    display: none; }\n  .editor-container .exit {\n    position: absolute;\n    text-decoration: none;\n    color: #222;\n    transition: text-shadow .4s, color .6s;\n    top: 0;\n    left: 0;\n    padding: 0; }\n    .editor-container .exit:hover {\n      text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);\n      color: #C62828; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 230px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 7px 0 0;\n      display: flex;\n      width: 100%;\n      justify-content: flex-end; }\n      .editor-container .left-navbar .main-actions li {\n        margin-right: 15px; }\n        .editor-container .left-navbar .main-actions li a {\n          text-decoration: none;\n          color: #444;\n          display: inline-block;\n          transition: text-shadow .4s, color .4s; }\n          .editor-container .left-navbar .main-actions li a:hover {\n            text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound, .editor-container .left-navbar .add-level {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between;\n          cursor: default; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            cursor: pointer;\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .sound-list li:hover .play:before, .editor-container .left-navbar .sound-list li:hover .timeline {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .sound-list li.played .play:before {\n          content: \"pause_circle_filled\";\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li.played .timeline {\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li .timeline {\n          cursor: pointer;\n          display: block;\n          width: 100%;\n          height: 5px;\n          opacity: 0;\n          transition: opacity .1s, color .4s;\n          transition-delay: .0s;\n          background-color: #ebebeb;\n          border-radius: 3px;\n          position: relative;\n          float: left; }\n          .editor-container .left-navbar .sound-list li .timeline .progress {\n            display: block;\n            background-color: #222222;\n            height: 100%;\n            width: 0; }\n    .editor-container .left-navbar .settings-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .settings-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .settings-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .settings-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n    .editor-container .left-navbar .levels-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .levels-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .levels-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 5px 15px;\n        cursor: pointer; }\n        .editor-container .left-navbar .levels-list li a {\n          cursor: inherit;\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .levels-list li a .remove:before {\n            content: \"delete\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .levels-list li:hover .remove:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .levels-list li .remove:hover {\n          color: #C62828; }\n        .editor-container .left-navbar .levels-list li.active {\n          cursor: default;\n          background-color: #bfbfbf; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n", ""]);
 	
 	// exports
 
@@ -527,7 +527,7 @@
 		constructor(params = {}){
 			this._params = Object.assign({}, ProjectManager.defaults, params);
 			this.modules = new Map();
-	
+			this._activeLevel = null;
 			this._prepareFileSystem();
 		}
 	
@@ -558,6 +558,17 @@
 		set levels(lvs){
 			this.gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
 			this._updateGameData();
+		}
+	
+		get activeLevel(){
+			return this._activeLevel;
+		}
+	
+		set activeLevel(val){
+			this._activeLevel = val;
+			const ev = new Event("update-active-level", { bubbles: true });
+			ev.activeLevel = this.activeLevel;
+			document.dispatchEvent(ev);
 		}
 	
 		_execQueries(){
@@ -591,9 +602,7 @@
 		}
 	
 		_updateGameData(){
-			const ev = new Event("update-game-data", {
-				bubbles: true
-			});
+			const ev = new Event("update-game-data", { bubbles: true });
 			ev.gameData = Object.assign({}, this.gameData);
 			document.dispatchEvent(ev);
 			this._writeGameData();
@@ -783,9 +792,7 @@
 		constructor(params, projectManager){
 			this._params = Object.assign({}, AddLevelDialog.defaults, params);
 			this.projectManager = projectManager;
-			this
-				._createModal()
-				._attachEvents();
+			this._attachEvents();
 		}
 	
 		get button(){
@@ -794,11 +801,6 @@
 	
 		get workPath(){
 			return this._params.workPath;
-		}
-	
-		_createModal(){
-	
-			return this;
 		}
 	
 		_attachEvents(){
@@ -811,7 +813,7 @@
 	
 		_onClick(){
 			const self = this;
-			vex.dialog.buttons.YES.text = "Create";
+			vex.dialog.buttons.YES.text = "Add";
 			this._dialog = vex.dialog.open({
 				input: AddLevelDialog.getModalContent(),
 				callback: function (data) {
@@ -821,7 +823,7 @@
 		}
 	
 		_createLevel(data){
-			if(!data || !data.name) return this;
+			if(!data || !data.levelName) return this;
 			const name = ("" + data.levelName).trim().toLowerCase(),
 				size = +data.levelSize || AddLevelDialog.defaultLevelSize;
 			let levels = this.projectManager.levels;
@@ -850,7 +852,6 @@
 	
 	
 	Object.assign(AddLevelDialog, {
-		title: "Create new level",
 		defaultLevelSize: 25
 	});
 	
@@ -937,7 +938,9 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const EventsController = __webpack_require__(1);
+	const EventsController = __webpack_require__(1),
+		path = nodeRequire("path"),
+		fs = nodeRequire("fs");
 	
 	
 	class LevelsList {
@@ -949,7 +952,7 @@
 		}
 	
 		static getItemTemplate(title){
-			return `<li>
+			return `<li data-name="${ title }">
 				<a href="#">
 					<span class="text">${ title }</span>
 					<span class="remove"></span>
@@ -958,8 +961,9 @@
 		}
 	
 	
-		constructor(params) {
+		constructor(params, projectManager) {
 			this._params = Object.assign({}, LevelsList.defaults, params);
+			this.projectManager = projectManager;
 			this
 				._attachEvents()
 				._render();
@@ -974,15 +978,59 @@
 		}
 	
 		_attachEvents(){
-			const ec = this._ec = new EventsController();
+			const  listContainer = this.listContainer,
+				ec = this._ec = new EventsController();
+	
 			this._onUpdateGameData = this._onUpdateGameData.bind(this);
+			this._showActiveLevel = this._showActiveLevel.bind(this);
+			this._onItemClick = this._onItemClick.bind(this);
+	
 			ec.add(window, "update-game-data", this._onUpdateGameData);
+			ec.add(window, "update-active-level", this._showActiveLevel);
+			ec.add(listContainer, "click", this._onItemClick);
 			return this;
 		}
 	
 		_onUpdateGameData(e){
 			this._params.levels = e.gameData.levels.slice(0);
 			this._render();
+		}
+	
+		_onItemClick(e){
+			const projectManager = this.projectManager,
+				name = (e.target.closest("li").getAttribute("data-name") || "").toLowerCase().trim();
+	
+			if(e.target.classList.contains("remove")){
+				let levels = this.levels,
+					index;
+	
+				if(name && (index = levels.indexOf(name)) !== -1){
+					fs.unlink(path.join(projectManager.workPath, `${name}.json`), (err) => {
+						if(err){
+							console.error(err);
+							return;
+						}
+						levels.splice(index, 1);
+						projectManager.levels = levels;
+					});
+				}
+			} else {
+				projectManager.activeLevel = name;
+			}
+		}
+	
+		_showActiveLevel(){
+			const activeLevel = projectManager.activeLevel,
+				listContainer = this.listContainer,
+				activeItem = listContainer.querySelector("li.active");
+	
+			if(activeItem) activeItem.classList.remove("active");
+			if(activeLevel){
+				const newActiveItem = listContainer.querySelector(`li[data-name='${activeLevel}']`);
+				if(newActiveItem) newActiveItem.classList.add("active");
+			}
+	
+			return this;
 		}
 	
 		_render(){
@@ -993,6 +1041,7 @@
 			for(let level of levels){
 				listContainer.insertAdjacentHTML("beforeend", LevelsList.getItemTemplate(level));
 			}
+			this._showActiveLevel();
 	
 			return this;
 		}
@@ -1018,12 +1067,13 @@
 		static get defaults() {
 			return {
 				mapContainer: null,
-				size: 20
+				size: 25
 			}
 		}
 	
-		constructor(params = {}) {
+		constructor(params = {}, projectManager) {
 			this._params = Object.assign(Object.create(null), MapEditor.defaults, params);
+			this.projectManager = projectManager;
 	
 			this._generateEditorData();
 			history.pushState("editorData", this.editorData);
@@ -1087,14 +1137,14 @@
 			this._onChangeState = this._onChangeState.bind(this);
 			this._onResize = this._onResize.bind(this);
 			this._onMouseMove = this._onMouseMove.bind(this);
-			this._onMouseOver = this._onMouseOver.bind(this);
+			this._onMouseLeave = this._onMouseLeave.bind(this);
 			this._onMouseDown = this._onMouseDown.bind(this);
 			this._onMouseUp = this._onMouseUp.bind(this);
 	
 			ec.add(window, "changestate", this._onChangeState);
 			ec.add(window, "resize", this._onResize);
 			ec.add(mapContainer, "mousemove", this._onMouseMove);
-			ec.add(mapContainer, "mouseover", this._onMouseOver);
+			ec.add(mapContainer, "mouseleave", this._onMouseLeave);
 			ec.add(mapContainer, "mousedown", this._onMouseDown);
 			ec.add(window, "mouseup", this._onMouseUp);
 			ec.add(window, "contextmenu", this._onContextMenu);
@@ -1221,7 +1271,7 @@
 			this.hoverData = cellData;
 		}
 	
-		_onMouseOver(){
+		_onMouseLeave(){
 			this.hoverData = null;
 		}
 	

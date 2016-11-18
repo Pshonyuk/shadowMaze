@@ -23,9 +23,7 @@ class AddLevelDialog {
 	constructor(params, projectManager){
 		this._params = Object.assign({}, AddLevelDialog.defaults, params);
 		this.projectManager = projectManager;
-		this
-			._createModal()
-			._attachEvents();
+		this._attachEvents();
 	}
 
 	get button(){
@@ -34,11 +32,6 @@ class AddLevelDialog {
 
 	get workPath(){
 		return this._params.workPath;
-	}
-
-	_createModal(){
-
-		return this;
 	}
 
 	_attachEvents(){
@@ -51,7 +44,7 @@ class AddLevelDialog {
 
 	_onClick(){
 		const self = this;
-		vex.dialog.buttons.YES.text = "Create";
+		vex.dialog.buttons.YES.text = "Add";
 		this._dialog = vex.dialog.open({
 			input: AddLevelDialog.getModalContent(),
 			callback: function (data) {
@@ -61,7 +54,7 @@ class AddLevelDialog {
 	}
 
 	_createLevel(data){
-		if(!data || !data.name) return this;
+		if(!data || !data.levelName) return this;
 		const name = ("" + data.levelName).trim().toLowerCase(),
 			size = +data.levelSize || AddLevelDialog.defaultLevelSize;
 		let levels = this.projectManager.levels;
@@ -90,7 +83,6 @@ class AddLevelDialog {
 
 
 Object.assign(AddLevelDialog, {
-	title: "Create new level",
 	defaultLevelSize: 25
 });
 

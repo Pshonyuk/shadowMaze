@@ -26,14 +26,15 @@ body{
   .exit{
     position: absolute;
     text-decoration: none;
-    color: #D50000;
-    transition: text-shadow .4s;
+    color: map_get($colors, "mainFont");
+    transition: text-shadow .4s, color .6s;
     top: 0;
     left: 0;
     padding: 0;
 
     &:hover{
       text-shadow: 0 0 6px rgba(0,0,0,.4);
+      color: map_get($colors, "danger");
     }
   }
 
@@ -165,6 +166,44 @@ body{
     .levels-list{
       flex: 1;
       @include list();
+
+      li{
+        padding: 5px 15px;
+        cursor: pointer;
+
+        a {
+          cursor: inherit;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .remove:before {
+            content: "delete";
+            font-family: "Material Icons";
+            font-size: 28px;
+            opacity: 0;
+            transition: opacity .1s, text-shadow .4s;
+            transition-delay: .0s;
+          }
+        }
+
+        &:hover{
+          .remove:before{
+            opacity: 1;
+            transition: opacity .6s, color .4s;
+            transition-delay: .5s, .0s;
+          }
+        }
+
+        .remove:hover{
+          color: map_get($colors, "danger");
+        }
+
+        &.active{
+          cursor: default;
+          background-color: darken(map_get($colors, "navbar"), 5);
+        }
+      }
     }
   }
 

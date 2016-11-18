@@ -26,7 +26,7 @@ class ProjectManager {
 	constructor(params = {}){
 		this._params = Object.assign({}, ProjectManager.defaults, params);
 		this.modules = new Map();
-
+		this._activeLevel = null;
 		this._prepareFileSystem();
 	}
 
@@ -57,6 +57,17 @@ class ProjectManager {
 	set levels(lvs){
 		this.gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
 		this._updateGameData();
+	}
+
+	get activeLevel(){
+		return this._activeLevel;
+	}
+
+	set activeLevel(val){
+		this._activeLevel = val;
+		const ev = new Event("update-active-level", { bubbles: true });
+		ev.activeLevel = this.activeLevel;
+		document.dispatchEvent(ev);
 	}
 
 	_execQueries(){
@@ -90,9 +101,7 @@ class ProjectManager {
 	}
 
 	_updateGameData(){
-		const ev = new Event("update-game-data", {
-			bubbles: true
-		});
+		const ev = new Event("update-game-data", { bubbles: true });
 		ev.gameData = Object.assign({}, this.gameData);
 		document.dispatchEvent(ev);
 		this._writeGameData();
