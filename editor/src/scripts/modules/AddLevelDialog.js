@@ -1,21 +1,28 @@
-const EventsController = require("../libs/EventsController");
+const EventsController = require("../libs/EventsController"),
+	path = nodeRequire("path"),
+	fs = nodeRequire("fs"),
+	vex = window.vex;
 
 
 class AddLevelDialog {
 	static get defaults(){
 		return {
-			button: null
+			button: null,
+			workPath: null
 		}
 	}
 
 	static getModalContent(){
 		return `
+		<input name="levelName" type="text" placeholder="Name" required/>
+		<input name="levelSize" type="text" placeholder="Size"/>
 		`
 	}
 
 
-	constructor(params){
+	constructor(params, projectManager){
 		this._params = Object.assign({}, AddLevelDialog.defaults, params);
+		this.projectManager = projectManager;
 		this
 			._createModal()
 			._attachEvents();
@@ -23,6 +30,10 @@ class AddLevelDialog {
 
 	get button(){
 		return this._params.button;
+	}
+
+	get workPath(){
+		return this._params.workPath;
 	}
 
 	_createModal(){
@@ -39,24 +50,49 @@ class AddLevelDialog {
 	}
 
 	_onClick(){
-		vex.dialog.open({
-			message: 'What planet did the aliens come from?',
-			input: [
-				'<input name="username" type="text" placeholder="Username" required />',
-				'<input name="password" type="password" placeholder="Password" required />'
-			].join(''),
-			callback: function (value) {
-				console.log(value)
+		const self = this;
+		vex.dialog.buttons.YES.text = "Create";
+		this._dialog = vex.dialog.open({
+			input: AddLevelDialog.getModalContent(),
+			callback: function (data) {
+				if(data) self._createLevel(data);
 			}
 		})
 	}
 
+	_createLevel(data){
+		if(!data || !data.name) return this;
+		const name = ("" + data.levelName).trim().toLowerCase(),
+			size = +data.levelSize || AddLevelDialog.defaultLevelSize;
+		let levels = this.projectManager.levels;
+
+		if(name && levels.indexOf(name) === -1){
+			const levelData = { data: new Array(size) };
+			fs.writeFile(path.join(this.workPath, `${name}.json`), JSON.stringify(levelData), (err) => {
+				if(err){
+					console.error(err);
+					return;
+				}
+				levels.push(name);
+				this.projectManager.levels = levels;
+			});
+
+		}
+		return this;
+	}
+
 	destroy(){
+		if(this._dialog) this._dialog.close();
 		this._ec.destroy();
-		this._modal.destroy();
 		return null;
 	}
 }
+
+
+Object.assign(AddLevelDialog, {
+	title: "Create new level",
+	defaultLevelSize: 25
+});
 
 
 module.exports = AddLevelDialog;

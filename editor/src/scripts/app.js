@@ -11,7 +11,8 @@ window.projectManager = new ProjectManager({
 			name: "addLevelDialog",
 			module: require("./modules/AddLevelDialog"),
 			params: {
-				button: document.querySelector(".add-level")
+				button: document.querySelector(".add-level"),
+				workPath: ProjectManager.query("workPath")
 			}
 		},
 		{

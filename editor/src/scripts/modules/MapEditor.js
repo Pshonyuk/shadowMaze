@@ -69,18 +69,21 @@ class MapEditor {
 	}
 
 	_attachEvents() {
-		const ec = this._eventsController = new EventsController();
+		const ec = this._eventsController = new EventsController(),
+			mapContainer = this.mapContainer;
 
 		this._onChangeState = this._onChangeState.bind(this);
 		this._onResize = this._onResize.bind(this);
 		this._onMouseMove = this._onMouseMove.bind(this);
+		this._onMouseOver = this._onMouseOver.bind(this);
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseUp = this._onMouseUp.bind(this);
 
 		ec.add(window, "changestate", this._onChangeState);
 		ec.add(window, "resize", this._onResize);
-		ec.add(window, "mousemove", this._onMouseMove);
-		ec.add(window, "mousedown", this._onMouseDown);
+		ec.add(mapContainer, "mousemove", this._onMouseMove);
+		ec.add(mapContainer, "mouseover", this._onMouseOver);
+		ec.add(mapContainer, "mousedown", this._onMouseDown);
 		ec.add(window, "mouseup", this._onMouseUp);
 		ec.add(window, "contextmenu", this._onContextMenu);
 
@@ -204,6 +207,10 @@ class MapEditor {
 		}
 
 		this.hoverData = cellData;
+	}
+
+	_onMouseOver(){
+		this.hoverData = null;
 	}
 
 	_renderGrid() {

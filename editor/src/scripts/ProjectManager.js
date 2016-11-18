@@ -9,7 +9,7 @@ class ProjectManager {
 		return {
 			workPath: "./game",
 			sourceDirName: "source",
-			entryPoint: "data.js",
+			entryPoint: "data.json",
 			modules: null
 		}
 	}
@@ -31,7 +31,7 @@ class ProjectManager {
 	}
 
 	get workPath(){
-		return this._params.workPath;
+		return path.resolve(this._params.workPath);
 	}
 
 	get sourcePath(){
@@ -55,7 +55,7 @@ class ProjectManager {
 	}
 
 	set levels(lvs){
-		this.gameData.levels = lvs.slice(0);
+		this.gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
 		this._updateGameData();
 	}
 
@@ -104,6 +104,7 @@ class ProjectManager {
 			const createException = (err) => {
 				console.error(err);
 				this._gameData = { levels: [] };
+				this._writeGameData();
 				if(cb) cb.call(this, err);
 			};
 
@@ -123,7 +124,7 @@ class ProjectManager {
 	}
 
 	_writeGameData(cb){
-		fs.writeFile(this.entryPoint, this.gameData, (err) => {
+		fs.writeFile(this.entryPoint, JSON.stringify(this.gameData), (err) => {
 			if(err) console.error(err);
 			if(cb) cb.call(this, err);
 		});

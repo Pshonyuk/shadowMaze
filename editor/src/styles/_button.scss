@@ -1,6 +1,6 @@
 @import "colors";
 
-button{
+button.shadow-maze-btn{
   border: 3px solid map_get($colors, "mainFont");
   background: map_get($colors, "button");
   overflow: hidden;
