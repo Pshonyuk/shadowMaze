@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/projects/shadowMaze/editor/assets";
+/******/ 	__webpack_require__.p = "F:\\Projects\\shadowMaze\\editor\\assets";
 /******/ 	// webpack-livereload-plugin
 /******/ 	(function() {
 /******/ 	  if (typeof window === "undefined") { return };
@@ -515,19 +515,12 @@
 			}
 		}
 	
-		static query(key, ...args){
-			function func () {
-				return typeof this[key] === "function" ? this[key].apply(this, args) : this[key];
-			}
-			func._queryKey = privateQueryKey;
-			return func;
-		}
-	
 	
 		constructor(params = {}){
 			this._params = Object.assign({}, ProjectManager.defaults, params);
 			this.modules = new Map();
 			this._activeLevel = null;
+			this._activeLevelData = null;
 			this._prepareFileSystem();
 		}
 	
@@ -556,8 +549,14 @@
 		}
 	
 		set levels(lvs){
-			this.gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
-			this._updateGameData();
+			let gameData = Object.assign({}, this.gameData),
+				activeLevel = this.activeLevel;
+			gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
+			this._updateGameData(gameData);
+	
+			if(activeLevel && this.levels.indexOf(activeLevel) === -1){
+				this.activeLevel = null;
+			}
 		}
 	
 		get activeLevel(){
@@ -569,17 +568,19 @@
 			const ev = new Event("update-active-level", { bubbles: true });
 			ev.activeLevel = this.activeLevel;
 			document.dispatchEvent(ev);
+			this._readLevelData(this._updateActiveLevelData.bind(this));
 		}
 	
-		_execQueries(){
-			const self = this;
+		get activeLevelData(){
+			return this._activeLevelData;
+		}
 	
-			traverse(this.paramsModules).forEach(function (item) {
-				if(typeof item === "function" && item._queryKey === privateQueryKey){
-					this.update(item.call(self));
-				}
-			});
-			return this;
+		get levelFilePath(){
+			let level = this.activeLevel;
+			if(level){
+				return path.resolve(path.join(this.workPath, level + ".json"));
+			}
+			return null;
 		}
 	
 		_prepareFileSystem() {
@@ -601,7 +602,8 @@
 			return this;
 		}
 	
-		_updateGameData(){
+		_updateGameData(data){
+			this._gameData = data;
 			const ev = new Event("update-game-data", { bubbles: true });
 			ev.gameData = Object.assign({}, this.gameData);
 			document.dispatchEvent(ev);
@@ -641,9 +643,42 @@
 			return this;
 		}
 	
+		_updateActiveLevelData(data){
+			this._activeLevelData = data;
+			const ev = new Event("update-active-level-data", { bubbles: true });
+			ev.activeLevelData = Object.assign({}, this.activeLevelData);
+			document.dispatchEvent(ev);
+			this._writeLevelData();
+			return this;
+		}
+	
+		_readLevelData(cb){
+			fs.readFile(this.levelFilePath, (err, data) => {
+				function createException(err) {
+					console.error(err);
+					if( typeof  cb === "function") cb(null);
+					return err;
+				}
+	
+				if(err) return createException(err);
+	
+				try{
+					data = JSON.parse(data);
+					cb(data);
+				} catch (err){
+					createException(err);
+				}
+			});
+		}
+	
+		_writeLevelData(){
+			fs.writeFile(this.levelFilePath, JSON.stringify(this.activeLevelData), (err) => {
+				if(err) console.error(err);
+			});
+		}
+	
 		_loadModules(){
 			const paramsModules = this.paramsModules;
-			this._execQueries();
 	
 			for(let paramsModule of paramsModules){
 				this.modules.set(paramsModule.name, new paramsModule.module(Object.assign({}, paramsModule.params), this));
@@ -677,16 +712,14 @@
 				name: "addLevelDialog",
 				module: __webpack_require__(11),
 				params: {
-					button: document.querySelector(".add-level"),
-					workPath: ProjectManager.query("workPath")
+					button: document.querySelector(".add-level")
 				}
 			},
 			{
 				name: "levelsList",
 				module: __webpack_require__(13),
 				params: {
-					listContainer: document.querySelector(".levels-list"),
-					levels: ProjectManager.query("levels")
+					listContainer: document.querySelector(".levels-list")
 				}
 			},
 			{
@@ -700,7 +733,6 @@
 				name: "addSoundDialog",
 				module: __webpack_require__(12),
 				params: {
-					sourcePath: ProjectManager.query("sourcePath"),
 					fileInput: document.getElementById("sound-dialog"),
 					button: document.querySelector(".add-sound")
 				}
@@ -709,8 +741,7 @@
 				name: "soundList",
 				module: __webpack_require__(15),
 				params: {
-					listContainer: document.querySelector(".sound-list"),
-					sourcePath: ProjectManager.query("sourcePath")
+					listContainer: document.querySelector(".sound-list")
 				}
 			}
 		]
@@ -776,8 +807,7 @@
 	class AddLevelDialog {
 		static get defaults(){
 			return {
-				button: null,
-				workPath: null
+				button: null
 			}
 		}
 	
@@ -800,7 +830,7 @@
 		}
 	
 		get workPath(){
-			return this._params.workPath;
+			return this.projectManager.workPath;
 		}
 	
 		_attachEvents(){
@@ -870,20 +900,20 @@
 	class AddSoundDialog {
 		static get defaults(){
 			return {
-				sourcePath: null,
 				fileInput: null,
 				button: null
 			}
 		}
 	
 	
-		constructor(params){
+		constructor(params, projectManager){
 			this._params = Object.assign({}, AddSoundDialog.defaults, params);
+			this.projectManager = projectManager;
 			this._attachEvents();
 		}
 	
 		get sourcePath(){
-			return this._params.sourcePath;
+			return this.projectManager.sourcePath;
 		}
 	
 		get fileInput(){
@@ -946,7 +976,6 @@
 	class LevelsList {
 		static get defaults(){
 			return {
-				levels: null,
 				listContainer: null
 			}
 		}
@@ -970,7 +999,7 @@
 		}
 	
 		get levels(){
-			return this._params.levels;
+			return this.projectManager.levels;
 		}
 	
 		get listContainer(){
@@ -998,7 +1027,10 @@
 	
 		_onItemClick(e){
 			const projectManager = this.projectManager,
-				name = (e.target.closest("li").getAttribute("data-name") || "").toLowerCase().trim();
+				liElement = e.target.closest("li");
+	
+			if(!liElement) return;
+			const name = (liElement.getAttribute("data-name") || "").toLowerCase().trim();
 	
 			if(e.target.classList.contains("remove")){
 				let levels = this.levels,
@@ -1060,14 +1092,15 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const EventsController = __webpack_require__(1),
-		history = __webpack_require__(10);
+		history = __webpack_require__(10),
+		path = nodeRequire("path"),
+		fs = nodeRequire("fs");
 	
 	
 	class MapEditor {
 		static get defaults() {
 			return {
-				mapContainer: null,
-				size: 25
+				mapContainer: null
 			}
 		}
 	
@@ -1095,27 +1128,35 @@
 		}
 	
 		get size() {
-			return this._params.size;
-		}
-	
-		set size(val) {
-			this._params.size = val;
-			this._generateEditorData();
+			return this._size;
 		}
 	
 		get editorData() {
-			return this._params.editorData;
+			return this._editorData;
 		}
 	
 		set editorData(val) {
-			this._params.editorData = val;
-			if(val) this._params.size = val.length;
+			this._editorData = val;
+			if(val) this._size = val.length;
 			this._generateEditorData();
 		}
 	
+		_updateLevelData(){
+			if(this.projectManager.activeLevel){
+				let levelData = Object.assign({}, this.projectManager.activeLevelData);
+				levelData.data = Object.assign([], this.editorData);
+				this.projectManager._updateActiveLevelData(levelData);
+			}
+			return this;
+		}
+	
 		_generateEditorData() {
-			const editorData = (this.editorData || (this._params.editorData = [])),
-				size = this._params.size = Math.max(5, +this.size || 0);
+			if(!this.projectManager.activeLevel){
+				return this;
+			}
+	
+			const editorData = (this.editorData || (this._editorData = [])),
+				size = this._size = Math.max(MapEditor.mapSize, +this.size || 0);
 	
 			editorData.length = size;
 			for(let i = 0; i < size; i++){
@@ -1127,6 +1168,7 @@
 					}
 				}
 			}
+	
 			return this;
 		}
 	
@@ -1140,6 +1182,8 @@
 			this._onMouseLeave = this._onMouseLeave.bind(this);
 			this._onMouseDown = this._onMouseDown.bind(this);
 			this._onMouseUp = this._onMouseUp.bind(this);
+			this._onChangeActiveLevelData = this._onChangeActiveLevelData.bind(this);
+			this._onChaneActiveLevel = this._onChaneActiveLevel.bind(this);
 	
 			ec.add(window, "changestate", this._onChangeState);
 			ec.add(window, "resize", this._onResize);
@@ -1148,6 +1192,8 @@
 			ec.add(mapContainer, "mousedown", this._onMouseDown);
 			ec.add(window, "mouseup", this._onMouseUp);
 			ec.add(window, "contextmenu", this._onContextMenu);
+			ec.add(window, "update-active-level-data", this._onChangeActiveLevelData);
+			ec.add(window, "update-active-level", this._onChaneActiveLevel);
 	
 			return this;
 		}
@@ -1229,6 +1275,7 @@
 			switch (e.action){
 				case "editorData":
 					this.editorData = e.state;
+					this._updateLevelData();
 					break;
 			}
 		}
@@ -1257,6 +1304,7 @@
 			if(e.button === 2){
 				this._mouseRightButton = false;
 				history.pushState("editorData", this.editorData);
+				this._updateLevelData();
 			}
 		}
 	
@@ -1275,9 +1323,21 @@
 			this.hoverData = null;
 		}
 	
+		_onChangeActiveLevelData(){
+			let activeLevelData = this.projectManager.activeLevelData;
+			this.editorData = activeLevelData && activeLevelData.data;
+			this._positioningCanvas();
+		}
+	
+		_onChaneActiveLevel(){
+			const cnv = this._cnv;
+			cnv.style.opacity = this.projectManager.activeLevel ? "" : "0";
+		}
+	
 		_renderGrid() {
-			const size = this.size,
-				ctx = this._ctx,
+			if(!this.projectManager.activeLevel) return;
+			const ctx = this._ctx,
+				size = this.size,
 				gridData = this._getGridData(),
 				cellSpace = gridData.cellSpace,
 				cellSize = gridData.cellSize,
@@ -1324,7 +1384,8 @@
 		cellColor: "#ccc",
 		hoverColor: "#222",
 		trackColor: "#efefef",
-		bgColor: "#777"
+		bgColor: "#777",
+		mapSize: 25
 	});
 	
 	
@@ -1344,7 +1405,6 @@
 	class SoundList {
 		static get defaults(){
 			return {
-				sourcePath: null,
 				listContainer: null
 			};
 		}
@@ -1362,13 +1422,14 @@
 			</li>`
 		}
 	
-		constructor(params){
+		constructor(params, projectManager){
 			this._params = Object.assign({}, SoundList.defaults, params);
+			this.projectManager = projectManager;
 			this._attachEvents()._updateSounds()._watch();
 		}
 	
 		get sourcePath(){
-			return this._params.sourcePath;
+			return this.projectManager.sourcePath;
 		}
 	
 		get listContainer(){

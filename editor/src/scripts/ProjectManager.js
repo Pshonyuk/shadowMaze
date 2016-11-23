@@ -14,19 +14,12 @@ class ProjectManager {
 		}
 	}
 
-	static query(key, ...args){
-		function func () {
-			return typeof this[key] === "function" ? this[key].apply(this, args) : this[key];
-		}
-		func._queryKey = privateQueryKey;
-		return func;
-	}
-
 
 	constructor(params = {}){
 		this._params = Object.assign({}, ProjectManager.defaults, params);
 		this.modules = new Map();
 		this._activeLevel = null;
+		this._activeLevelData = null;
 		this._prepareFileSystem();
 	}
 
@@ -55,8 +48,14 @@ class ProjectManager {
 	}
 
 	set levels(lvs){
-		this.gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
-		this._updateGameData();
+		let gameData = Object.assign({}, this.gameData),
+			activeLevel = this.activeLevel;
+		gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
+		this._updateGameData(gameData);
+
+		if(activeLevel && this.levels.indexOf(activeLevel) === -1){
+			this.activeLevel = null;
+		}
 	}
 
 	get activeLevel(){
@@ -68,17 +67,19 @@ class ProjectManager {
 		const ev = new Event("update-active-level", { bubbles: true });
 		ev.activeLevel = this.activeLevel;
 		document.dispatchEvent(ev);
+		this._readLevelData(this._updateActiveLevelData.bind(this));
 	}
 
-	_execQueries(){
-		const self = this;
+	get activeLevelData(){
+		return this._activeLevelData;
+	}
 
-		traverse(this.paramsModules).forEach(function (item) {
-			if(typeof item === "function" && item._queryKey === privateQueryKey){
-				this.update(item.call(self));
-			}
-		});
-		return this;
+	get levelFilePath(){
+		let level = this.activeLevel;
+		if(level){
+			return path.resolve(path.join(this.workPath, level + ".json"));
+		}
+		return null;
 	}
 
 	_prepareFileSystem() {
@@ -100,7 +101,8 @@ class ProjectManager {
 		return this;
 	}
 
-	_updateGameData(){
+	_updateGameData(data){
+		this._gameData = data;
 		const ev = new Event("update-game-data", { bubbles: true });
 		ev.gameData = Object.assign({}, this.gameData);
 		document.dispatchEvent(ev);
@@ -140,9 +142,42 @@ class ProjectManager {
 		return this;
 	}
 
+	_updateActiveLevelData(data){
+		this._activeLevelData = data;
+		const ev = new Event("update-active-level-data", { bubbles: true });
+		ev.activeLevelData = Object.assign({}, this.activeLevelData);
+		document.dispatchEvent(ev);
+		this._writeLevelData();
+		return this;
+	}
+
+	_readLevelData(cb){
+		fs.readFile(this.levelFilePath, (err, data) => {
+			function createException(err) {
+				console.error(err);
+				if( typeof  cb === "function") cb(null);
+				return err;
+			}
+
+			if(err) return createException(err);
+
+			try{
+				data = JSON.parse(data);
+				cb(data);
+			} catch (err){
+				createException(err);
+			}
+		});
+	}
+
+	_writeLevelData(){
+		fs.writeFile(this.levelFilePath, JSON.stringify(this.activeLevelData), (err) => {
+			if(err) console.error(err);
+		});
+	}
+
 	_loadModules(){
 		const paramsModules = this.paramsModules;
-		this._execQueries();
 
 		for(let paramsModule of paramsModules){
 			this.modules.set(paramsModule.name, new paramsModule.module(Object.assign({}, paramsModule.params), this));

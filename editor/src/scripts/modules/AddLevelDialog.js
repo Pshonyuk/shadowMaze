@@ -7,8 +7,7 @@ const EventsController = require("../libs/EventsController"),
 class AddLevelDialog {
 	static get defaults(){
 		return {
-			button: null,
-			workPath: null
+			button: null
 		}
 	}
 
@@ -31,7 +30,7 @@ class AddLevelDialog {
 	}
 
 	get workPath(){
-		return this._params.workPath;
+		return this.projectManager.workPath;
 	}
 
 	_attachEvents(){

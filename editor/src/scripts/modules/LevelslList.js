@@ -6,7 +6,6 @@ const EventsController = require("../libs/EventsController"),
 class LevelsList {
 	static get defaults(){
 		return {
-			levels: null,
 			listContainer: null
 		}
 	}
@@ -30,7 +29,7 @@ class LevelsList {
 	}
 
 	get levels(){
-		return this._params.levels;
+		return this.projectManager.levels;
 	}
 
 	get listContainer(){
@@ -58,7 +57,10 @@ class LevelsList {
 
 	_onItemClick(e){
 		const projectManager = this.projectManager,
-			name = (e.target.closest("li").getAttribute("data-name") || "").toLowerCase().trim();
+			liElement = e.target.closest("li");
+
+		if(!liElement) return;
+		const name = (liElement.getAttribute("data-name") || "").toLowerCase().trim();
 
 		if(e.target.classList.contains("remove")){
 			let levels = this.levels,

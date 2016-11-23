@@ -1,12 +1,13 @@
 const EventsController = require("../libs/EventsController"),
-	history = require("../history");
+	history = require("../history"),
+	path = nodeRequire("path"),
+	fs = nodeRequire("fs");
 
 
 class MapEditor {
 	static get defaults() {
 		return {
-			mapContainer: null,
-			size: 25
+			mapContainer: null
 		}
 	}
 
@@ -34,27 +35,35 @@ class MapEditor {
 	}
 
 	get size() {
-		return this._params.size;
-	}
-
-	set size(val) {
-		this._params.size = val;
-		this._generateEditorData();
+		return this._size;
 	}
 
 	get editorData() {
-		return this._params.editorData;
+		return this._editorData;
 	}
 
 	set editorData(val) {
-		this._params.editorData = val;
-		if(val) this._params.size = val.length;
+		this._editorData = val;
+		if(val) this._size = val.length;
 		this._generateEditorData();
 	}
 
+	_updateLevelData(){
+		if(this.projectManager.activeLevel){
+			let levelData = Object.assign({}, this.projectManager.activeLevelData);
+			levelData.data = Object.assign([], this.editorData);
+			this.projectManager._updateActiveLevelData(levelData);
+		}
+		return this;
+	}
+
 	_generateEditorData() {
-		const editorData = (this.editorData || (this._params.editorData = [])),
-			size = this._params.size = Math.max(5, +this.size || 0);
+		if(!this.projectManager.activeLevel){
+			return this;
+		}
+
+		const editorData = (this.editorData || (this._editorData = [])),
+			size = this._size = Math.max(MapEditor.mapSize, +this.size || 0);
 
 		editorData.length = size;
 		for(let i = 0; i < size; i++){
@@ -66,6 +75,7 @@ class MapEditor {
 				}
 			}
 		}
+
 		return this;
 	}
 
@@ -79,6 +89,8 @@ class MapEditor {
 		this._onMouseLeave = this._onMouseLeave.bind(this);
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseUp = this._onMouseUp.bind(this);
+		this._onChangeActiveLevelData = this._onChangeActiveLevelData.bind(this);
+		this._onChaneActiveLevel = this._onChaneActiveLevel.bind(this);
 
 		ec.add(window, "changestate", this._onChangeState);
 		ec.add(window, "resize", this._onResize);
@@ -87,6 +99,8 @@ class MapEditor {
 		ec.add(mapContainer, "mousedown", this._onMouseDown);
 		ec.add(window, "mouseup", this._onMouseUp);
 		ec.add(window, "contextmenu", this._onContextMenu);
+		ec.add(window, "update-active-level-data", this._onChangeActiveLevelData);
+		ec.add(window, "update-active-level", this._onChaneActiveLevel);
 
 		return this;
 	}
@@ -168,6 +182,7 @@ class MapEditor {
 		switch (e.action){
 			case "editorData":
 				this.editorData = e.state;
+				this._updateLevelData();
 				break;
 		}
 	}
@@ -196,6 +211,7 @@ class MapEditor {
 		if(e.button === 2){
 			this._mouseRightButton = false;
 			history.pushState("editorData", this.editorData);
+			this._updateLevelData();
 		}
 	}
 
@@ -214,9 +230,21 @@ class MapEditor {
 		this.hoverData = null;
 	}
 
+	_onChangeActiveLevelData(){
+		let activeLevelData = this.projectManager.activeLevelData;
+		this.editorData = activeLevelData && activeLevelData.data;
+		this._positioningCanvas();
+	}
+
+	_onChaneActiveLevel(){
+		const cnv = this._cnv;
+		cnv.style.opacity = this.projectManager.activeLevel ? "" : "0";
+	}
+
 	_renderGrid() {
-		const size = this.size,
-			ctx = this._ctx,
+		if(!this.projectManager.activeLevel) return;
+		const ctx = this._ctx,
+			size = this.size,
 			gridData = this._getGridData(),
 			cellSpace = gridData.cellSpace,
 			cellSize = gridData.cellSize,
@@ -263,7 +291,8 @@ Object.assign(MapEditor, {
 	cellColor: "#ccc",
 	hoverColor: "#222",
 	trackColor: "#efefef",
-	bgColor: "#777"
+	bgColor: "#777",
+	mapSize: 25
 });
 
 

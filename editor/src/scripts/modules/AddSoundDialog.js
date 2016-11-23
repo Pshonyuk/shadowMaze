@@ -6,20 +6,20 @@ const EventsController = require("../libs/EventsController"),
 class AddSoundDialog {
 	static get defaults(){
 		return {
-			sourcePath: null,
 			fileInput: null,
 			button: null
 		}
 	}
 
 
-	constructor(params){
+	constructor(params, projectManager){
 		this._params = Object.assign({}, AddSoundDialog.defaults, params);
+		this.projectManager = projectManager;
 		this._attachEvents();
 	}
 
 	get sourcePath(){
-		return this._params.sourcePath;
+		return this.projectManager.sourcePath;
 	}
 
 	get fileInput(){

@@ -11,16 +11,14 @@ window.projectManager = new ProjectManager({
 			name: "addLevelDialog",
 			module: require("./modules/AddLevelDialog"),
 			params: {
-				button: document.querySelector(".add-level"),
-				workPath: ProjectManager.query("workPath")
+				button: document.querySelector(".add-level")
 			}
 		},
 		{
 			name: "levelsList",
 			module: require("./modules/LevelslList"),
 			params: {
-				listContainer: document.querySelector(".levels-list"),
-				levels: ProjectManager.query("levels")
+				listContainer: document.querySelector(".levels-list")
 			}
 		},
 		{
@@ -34,7 +32,6 @@ window.projectManager = new ProjectManager({
 			name: "addSoundDialog",
 			module: require("./modules/AddSoundDialog"),
 			params: {
-				sourcePath: ProjectManager.query("sourcePath"),
 				fileInput: document.getElementById("sound-dialog"),
 				button: document.querySelector(".add-sound")
 			}
@@ -43,8 +40,7 @@ window.projectManager = new ProjectManager({
 			name: "soundList",
 			module: require("./modules/SoundList"),
 			params: {
-				listContainer: document.querySelector(".sound-list"),
-				sourcePath: ProjectManager.query("sourcePath")
+				listContainer: document.querySelector(".sound-list")
 			}
 		}
 	]

@@ -7,7 +7,6 @@ const EventsController = require("../libs/EventsController"),
 class SoundList {
 	static get defaults(){
 		return {
-			sourcePath: null,
 			listContainer: null
 		};
 	}
@@ -25,13 +24,14 @@ class SoundList {
 		</li>`
 	}
 
-	constructor(params){
+	constructor(params, projectManager){
 		this._params = Object.assign({}, SoundList.defaults, params);
+		this.projectManager = projectManager;
 		this._attachEvents()._updateSounds()._watch();
 	}
 
 	get sourcePath(){
-		return this._params.sourcePath;
+		return this.projectManager.sourcePath;
 	}
 
 	get listContainer(){
