@@ -1,7 +1,6 @@
 const fs = nodeRequire("fs"),
 	path = nodeRequire("path"),
-	traverse = nodeRequire("traverse"),
-	privateQueryKey = {};
+	traverse = nodeRequire("traverse");
 
 
 class ProjectManager {
@@ -18,8 +17,6 @@ class ProjectManager {
 	constructor(params = {}){
 		this._params = Object.assign({}, ProjectManager.defaults, params);
 		this.modules = new Map();
-		this._activeLevel = null;
-		this._activeLevelData = null;
 		this._prepareFileSystem();
 	}
 
@@ -96,6 +93,7 @@ class ProjectManager {
 
 		this._readGameData(() => {
 			this._loadModules();
+			this.activeLevel = null;
 		});
 
 		return this;
@@ -152,7 +150,10 @@ class ProjectManager {
 	}
 
 	_readLevelData(cb){
-		fs.readFile(this.levelFilePath, (err, data) => {
+		const levelFilePath = this.levelFilePath;
+		if(!levelFilePath) return typeof cb === "function" && cb(null);
+
+		fs.readFile(levelFilePath, (err, data) => {
 			function createException(err) {
 				console.error(err);
 				if( typeof  cb === "function") cb(null);
@@ -163,7 +164,7 @@ class ProjectManager {
 
 			try{
 				data = JSON.parse(data);
-				cb(data);
+				if(typeof cb === "function") cb(data);
 			} catch (err){
 				createException(err);
 			}
@@ -171,7 +172,10 @@ class ProjectManager {
 	}
 
 	_writeLevelData(){
-		fs.writeFile(this.levelFilePath, JSON.stringify(this.activeLevelData), (err) => {
+		const levelFilePath = this.levelFilePath;
+		if(!levelFilePath) return;
+
+		fs.writeFile(levelFilePath, JSON.stringify(this.activeLevelData), (err) => {
 			if(err) console.error(err);
 		});
 	}

@@ -8,6 +8,13 @@ window.vex.defaultOptions.className = "vex-theme-os";
 window.projectManager = new ProjectManager({
 	modules: [
 		{
+			name: "settingsList",
+			module: require("./modules/SettingsList"),
+			params: {
+				listContainer: document.querySelector(".settings-list")
+			}
+		},
+		{
 			name: "addLevelDialog",
 			module: require("./modules/AddLevelDialog"),
 			params: {

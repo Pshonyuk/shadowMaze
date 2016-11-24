@@ -48,6 +48,10 @@ class MapEditor {
 		this._generateEditorData();
 	}
 
+	get cellData() {
+		return this._cellData;
+	}
+
 	_updateLevelData(){
 		if(this.projectManager.activeLevel){
 			let levelData = Object.assign({}, this.projectManager.activeLevelData);
@@ -204,6 +208,13 @@ class MapEditor {
 				e.preventDefault();
 				cell.track = !e.ctrlKey;
 			}
+		} else if (e.button === 0) {
+			const currentCellData = this.cellData || {},
+				cellData = this._getCellByEvent(e),
+				ev = new Event("editor-select-cell", { bubbles: true });
+
+			this._cellData = ev.cellData = cellData.row === currentCellData.row && cellData.column === currentCellData.column ? null : cellData;
+			document.dispatchEvent(ev);
 		}
 	}
 
