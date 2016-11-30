@@ -143,6 +143,21 @@ class ProjectManager {
 	_updateActiveLevelData(data){
 		this._activeLevelData = data;
 		const ev = new Event("update-active-level-data", { bubbles: true });
+		let isStart, isFinish;
+
+		data && data.data.forEach((row) => {
+			row && row.forEach((cellData) => {
+				if(cellData.role === "start" && !isStart){
+					isStart = true;
+					return;
+				} else if(cellData.role === "finish" && !isFinish){
+					isFinish = true;
+					return;
+				}
+				cellData.role = "default";
+			})
+		});
+
 		ev.activeLevelData = Object.assign({}, this.activeLevelData);
 		document.dispatchEvent(ev);
 		this._writeLevelData();

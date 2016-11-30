@@ -42,12 +42,11 @@ class AddLevelDialog {
 	}
 
 	_onClick(){
-		const self = this;
 		vex.dialog.buttons.YES.text = "Add";
 		this._dialog = vex.dialog.open({
 			input: AddLevelDialog.getModalContent(),
-			callback: function (data) {
-				if(data) self._createLevel(data);
+			callback: (data) => {
+				if(data) this._createLevel(data);
 			}
 		})
 	}

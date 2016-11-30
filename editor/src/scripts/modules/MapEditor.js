@@ -17,6 +17,7 @@ class MapEditor {
 		this._generateEditorData();
 
 		this._createCanvas()
+			._createSoundImg()
 			._positioningCanvas()
 			._attachEvents();
 
@@ -48,6 +49,16 @@ class MapEditor {
 
 	get cellData() {
 		return this._cellData;
+	}
+
+	get soundImg() {
+		return this._soundImg;
+	}
+
+	_createSoundImg() {
+		this._soundImg = new Image();
+		this._soundImg.src = "../../assets/img/sound.png";
+		return this;
 	}
 
 	_updateLevelData(){
@@ -262,30 +273,53 @@ class MapEditor {
 			cellSize = gridData.cellSize,
 			editorData = this.editorData;
 
-		ctx.fillStyle = MapEditor.bgColor;
+		ctx.fillStyle = MapEditor.colors.bg;
 		ctx.fillRect(0, 0, gridData.cnvW, gridData.cnvH);
 
 		for(let i = 0; i < size; i++){
 			for(let j = 0; j < size; j++){
-				if(editorData[i][j].track){
-					ctx.fillStyle = MapEditor.trackColor;
+				const cellData = editorData[i][j],
+					role = cellData.role,
+					x = j * cellSpace,
+					y = i * cellSpace;
+
+				if(cellData.track){
+					ctx.fillStyle = MapEditor.colors.track;
 				}else{
-					ctx.fillStyle = MapEditor.cellColor;
+					ctx.fillStyle = MapEditor.colors.cell;
 				}
-				ctx.fillRect(j * cellSpace, i * cellSpace, cellSize, cellSize);
+
+				ctx.fillRect(x, y, cellSize, cellSize);
+
+				if(role && role !== "default") {
+					const firstLetter = role.substr(0, 1).toUpperCase();
+					ctx.fillStyle = MapEditor.colors[`${role}Text`];
+					ctx.font = `${Math.floor(cellSpace * 0.8)}px sans-serif`;
+					ctx.textAlign = "center";
+					ctx.textBaseline = "middle";
+					ctx.fillText(firstLetter, x + cellSize / 2, y + cellSize / 2);
+				}
+
+				if(cellData.sound && cellData.sound !== "none") {
+					const img = this.soundImg,
+						m = (cellSpace * 0.4) / Math.max(img.height, img.width),
+						w = Math.round(img.width * m),
+						h = Math.round(img.height * m);
+					ctx.drawImage(this.soundImg, x, y , w, h);
+				}
 			}
 		}
 
 		[
-			[this.hoverData, "hoverColor"],
-			[this._selectedCell, "selectedColor"]
+			[this.hoverData, "hover"],
+			[this._selectedCell, "selected"]
 		].forEach((item) => {
 			if(!item[0]) return;
 			const lineWidth = MapEditor.cellSpacing * 3,
 				x = item[0].column * cellSpace + lineWidth / 2,
 				y = item[0].row * cellSpace + lineWidth / 2;
 
-			ctx.strokeStyle = MapEditor[item[1]];
+			ctx.strokeStyle = MapEditor.colors[item[1]];
 			ctx.lineWidth = lineWidth;
 			ctx.beginPath();
 			ctx.rect(x, y, cellSize - lineWidth, cellSize - lineWidth);
@@ -298,6 +332,8 @@ class MapEditor {
 	destroy(){
 		cancelAnimationFrame(this._renderGridRAFId);
 		this._eventsController.destroy();
+		this._soundImg = null;
+		return null;
 	}
 }
 
@@ -305,12 +341,16 @@ class MapEditor {
 
 Object.assign(MapEditor, {
 	cellSpacing: 1,
-	cellColor: "#ccc",
-	hoverColor: "#222",
-	selectedColor: "#3288e6",
-	trackColor: "#efefef",
-	bgColor: "#777",
-	mapSize: 25
+	mapSize: 25,
+	colors: {
+		bg: "#777",
+		cell: "#ccc",
+		hover: "#222",
+		track: "#efefef",
+		selected: "#3288e6",
+		startText: "#009688",
+		finishText: "#D50000"
+	}
 });
 
 

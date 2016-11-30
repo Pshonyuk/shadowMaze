@@ -150,7 +150,7 @@
 	
 	
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(7) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton.shadow-maze-btn {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button.shadow-maze-btn span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button.shadow-maze-btn:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container input[type=file] {\n    display: none; }\n  .editor-container .exit {\n    position: absolute;\n    text-decoration: none;\n    color: #222;\n    transition: text-shadow .4s, color .6s;\n    top: 0;\n    left: 0;\n    padding: 0; }\n    .editor-container .exit:hover {\n      text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);\n      color: #C62828; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 230px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 7px 0 0;\n      display: flex;\n      width: 100%;\n      justify-content: flex-end; }\n      .editor-container .left-navbar .main-actions li {\n        margin-right: 15px; }\n        .editor-container .left-navbar .main-actions li a {\n          text-decoration: none;\n          color: #444;\n          display: inline-block;\n          transition: text-shadow .4s, color .4s; }\n          .editor-container .left-navbar .main-actions li a:hover {\n            text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound, .editor-container .left-navbar .add-level {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between;\n          cursor: default; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            cursor: pointer;\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .sound-list li:hover .play:before, .editor-container .left-navbar .sound-list li:hover .timeline {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .sound-list li.played .play:before {\n          content: \"pause_circle_filled\";\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li.played .timeline {\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li .timeline {\n          cursor: pointer;\n          display: block;\n          width: 100%;\n          height: 5px;\n          opacity: 0;\n          transition: opacity .1s, color .4s;\n          transition-delay: .0s;\n          background-color: #ebebeb;\n          border-radius: 3px;\n          position: relative;\n          float: left; }\n          .editor-container .left-navbar .sound-list li .timeline .progress {\n            display: block;\n            background-color: #222222;\n            height: 100%;\n            width: 0; }\n    .editor-container .left-navbar .settings-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .settings-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .settings-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .settings-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n    .editor-container .left-navbar .levels-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .levels-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .levels-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 5px 15px;\n        cursor: pointer; }\n        .editor-container .left-navbar .levels-list li a {\n          cursor: inherit;\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .levels-list li a .remove:before {\n            content: \"delete\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .levels-list li:hover .remove:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .levels-list li .remove:hover {\n          color: #C62828; }\n        .editor-container .left-navbar .levels-list li.active {\n          cursor: default;\n          background-color: #bfbfbf; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n\n[data-hidden] {\n  transition-property: opacity;\n  transition-duration: .4s;\n  transition-timing-function: cubic-bezier(0, 1, 0.5, 1); }\n\n[data-hidden=\"true\"] {\n  opacity: 0.3;\n  pointer-events: none; }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Material Icons\"), local(\"MaterialIcons-Regular\"), url(" + __webpack_require__(7) + ") format(\"woff\"); }\n\n.mi {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n  /* Rules for using icons as black on a light background. */\n  /* Rules for using icons as white on a dark background. */ }\n  .mi.md-18 {\n    font-size: 18px; }\n  .mi.md-24 {\n    font-size: 24px; }\n  .mi.md-36 {\n    font-size: 36px; }\n  .mi.md-48 {\n    font-size: 48px; }\n  .mi.md-dark {\n    color: rgba(0, 0, 0, 0.54); }\n    .mi.md-dark.md-inactive {\n      color: rgba(0, 0, 0, 0.26); }\n  .mi.md-light {\n    color: white; }\n    .mi.md-light.md-inactive {\n      color: rgba(255, 255, 255, 0.3); }\n\nbutton.shadow-maze-btn {\n  border: 3px solid #222;\n  background: #ebebeb;\n  overflow: hidden;\n  width: 100%;\n  outline: none;\n  display: flex;\n  align-items: center;\n  transition: background-color .3s; }\n  button.shadow-maze-btn span {\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 1.5em;\n    color: #222;\n    display: block;\n    user-select: none;\n    position: relative;\n    overflow: hidden;\n    padding: 10px; }\n  button.shadow-maze-btn:hover {\n    background-color: #e1e1e1;\n    cursor: pointer; }\n\n.vex {\n  overflow: hidden; }\n  .vex .vex-dialog-input section {\n    border: 1px solid #222;\n    border-radius: 7px;\n    margin-bottom: 15px;\n    padding: 10px 15px;\n    text-transform: capitalize;\n    user-select: none; }\n    .vex .vex-dialog-input section h3 {\n      margin: 0;\n      text-transform: uppercase; }\n    .vex .vex-dialog-input section select {\n      text-transform: capitalize; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  background-color: #efefef;\n  overflow: hidden; }\n\n.editor-container {\n  height: inherit;\n  display: flex;\n  flex-direction: row;\n  user-select: none; }\n  .editor-container input[type=file] {\n    display: none; }\n  .editor-container .exit {\n    position: absolute;\n    text-decoration: none;\n    color: #222;\n    transition: text-shadow .4s, color .6s;\n    top: 0;\n    left: 0;\n    padding: 0; }\n    .editor-container .exit:hover {\n      text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);\n      color: #C62828; }\n  .editor-container .left-navbar {\n    flex: 3;\n    min-width: 230px;\n    max-width: 400px;\n    display: flex;\n    flex-direction: column;\n    align-items: stretch;\n    background-color: #ccc;\n    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar ::-webkit-scrollbar {\n      width: 0.5em;\n      height: 0.5em; }\n    .editor-container .left-navbar ::-webkit-scrollbar-thumb {\n      background: #222; }\n    .editor-container .left-navbar ::-webkit-scrollbar-track {\n      background: #919191; }\n    .editor-container .left-navbar .main-actions {\n      list-style: none;\n      margin: 0;\n      padding: 7px 0 0;\n      display: flex;\n      width: 100%;\n      justify-content: flex-end; }\n      .editor-container .left-navbar .main-actions li {\n        margin-right: 15px; }\n        .editor-container .left-navbar .main-actions li a {\n          text-decoration: none;\n          color: #444;\n          display: inline-block;\n          transition: text-shadow .4s, color .4s; }\n          .editor-container .left-navbar .main-actions li a:hover {\n            text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }\n    .editor-container .left-navbar .add-sound, .editor-container .left-navbar .add-level {\n      border-right-width: 0;\n      border-left-width: 0; }\n    .editor-container .left-navbar .title {\n      cursor: default;\n      color: #222;\n      font-size: 1.5em;\n      border: 3px solid #222;\n      border-right-width: 0;\n      border-left-width: 0;\n      padding: 10px;\n      text-transform: uppercase;\n      font-weight: 700;\n      background-color: #ebebeb; }\n    .editor-container .left-navbar .sound-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .sound-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .sound-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .sound-list li {\n        padding: 5px 15px; }\n        .editor-container .left-navbar .sound-list li a {\n          display: flex;\n          align-items: center;\n          justify-content: space-between;\n          cursor: default; }\n          .editor-container .left-navbar .sound-list li a .play:before {\n            cursor: pointer;\n            content: \"play_circle_filled\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .sound-list li:hover .play:before, .editor-container .left-navbar .sound-list li:hover .timeline {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .sound-list li.played .play:before {\n          content: \"pause_circle_filled\";\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li.played .timeline {\n          opacity: 1; }\n        .editor-container .left-navbar .sound-list li .timeline {\n          cursor: pointer;\n          display: block;\n          width: 100%;\n          height: 5px;\n          opacity: 0;\n          transition: opacity .1s, color .4s;\n          transition-delay: .0s;\n          background-color: #ebebeb;\n          border-radius: 3px;\n          position: relative;\n          float: left; }\n          .editor-container .left-navbar .sound-list li .timeline .progress {\n            display: block;\n            background-color: #222222;\n            height: 100%;\n            width: 0; }\n    .editor-container .left-navbar .settings-list {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .settings-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .settings-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .settings-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n    .editor-container .left-navbar .levels-list {\n      flex: 1;\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      display: flex;\n      flex-direction: column;\n      overflow-y: auto;\n      overflow-x: hidden; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 10px 15px;\n        font-size: 18px;\n        cursor: default;\n        transition: background-color .3s; }\n        .editor-container .left-navbar .levels-list li:hover {\n          background-color: #bfbfbf; }\n        .editor-container .left-navbar .levels-list li a {\n          text-decoration: none;\n          color: #222;\n          display: flex;\n          justify-content: space-between; }\n      .editor-container .left-navbar .levels-list li {\n        padding: 5px 15px;\n        cursor: pointer; }\n        .editor-container .left-navbar .levels-list li a {\n          cursor: inherit;\n          display: flex;\n          align-items: center;\n          justify-content: space-between; }\n          .editor-container .left-navbar .levels-list li a .remove:before {\n            content: \"delete\";\n            font-family: \"Material Icons\";\n            font-size: 28px;\n            opacity: 0;\n            transition: opacity .1s, text-shadow .4s;\n            transition-delay: .0s; }\n        .editor-container .left-navbar .levels-list li:hover .remove:before {\n          opacity: 1;\n          transition: opacity .6s, color .4s;\n          transition-delay: .5s, .0s; }\n        .editor-container .left-navbar .levels-list li .remove:hover {\n          color: #C62828; }\n        .editor-container .left-navbar .levels-list li.active {\n          cursor: default;\n          background-color: #bfbfbf; }\n  .editor-container .map-container {\n    flex: 5;\n    margin: 5px 10px;\n    background-color: #efefef;\n    min-width: 545px;\n    min-height: 545px; }\n    .editor-container .map-container canvas {\n      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }\n\n[data-hidden] {\n  transition-property: opacity;\n  transition-duration: .4s;\n  transition-timing-function: cubic-bezier(0, 1, 0.5, 1); }\n\n[data-hidden=\"true\"] {\n  opacity: 0.3;\n  pointer-events: none; }\n", ""]);
 	
 	// exports
 
@@ -644,6 +644,21 @@
 		_updateActiveLevelData(data){
 			this._activeLevelData = data;
 			const ev = new Event("update-active-level-data", { bubbles: true });
+			let isStart, isFinish;
+	
+			data && data.data.forEach((row) => {
+				row && row.forEach((cellData) => {
+					if(cellData.role === "start" && !isStart){
+						isStart = true;
+						return;
+					} else if(cellData.role === "finish" && !isFinish){
+						isFinish = true;
+						return;
+					}
+					cellData.role = "default";
+				})
+			});
+	
 			ev.activeLevelData = Object.assign({}, this.activeLevelData);
 			document.dispatchEvent(ev);
 			this._writeLevelData();
@@ -762,6 +777,13 @@
 					undoEl: document.querySelector(".history.undo"),
 					redoEl: document.querySelector(".history.redo")
 				}
+			},
+			{
+				name: "cellSettingsDialog",
+				module: __webpack_require__(27),
+				params: {
+					el: document.querySelector("[data-settings='cell']")
+				}
 			}
 		]
 	});
@@ -815,12 +837,11 @@
 		}
 	
 		_onClick(){
-			const self = this;
 			vex.dialog.buttons.YES.text = "Add";
 			this._dialog = vex.dialog.open({
 				input: AddLevelDialog.getModalContent(),
-				callback: function (data) {
-					if(data) self._createLevel(data);
+				callback: (data) => {
+					if(data) this._createLevel(data);
 				}
 			})
 		}
@@ -1083,6 +1104,7 @@
 			this._generateEditorData();
 	
 			this._createCanvas()
+				._createSoundImg()
 				._positioningCanvas()
 				._attachEvents();
 	
@@ -1114,6 +1136,16 @@
 	
 		get cellData() {
 			return this._cellData;
+		}
+	
+		get soundImg() {
+			return this._soundImg;
+		}
+	
+		_createSoundImg() {
+			this._soundImg = new Image();
+			this._soundImg.src = "../../assets/img/sound.png";
+			return this;
 		}
 	
 		_updateLevelData(){
@@ -1328,30 +1360,53 @@
 				cellSize = gridData.cellSize,
 				editorData = this.editorData;
 	
-			ctx.fillStyle = MapEditor.bgColor;
+			ctx.fillStyle = MapEditor.colors.bg;
 			ctx.fillRect(0, 0, gridData.cnvW, gridData.cnvH);
 	
 			for(let i = 0; i < size; i++){
 				for(let j = 0; j < size; j++){
-					if(editorData[i][j].track){
-						ctx.fillStyle = MapEditor.trackColor;
+					const cellData = editorData[i][j],
+						role = cellData.role,
+						x = j * cellSpace,
+						y = i * cellSpace;
+	
+					if(cellData.track){
+						ctx.fillStyle = MapEditor.colors.track;
 					}else{
-						ctx.fillStyle = MapEditor.cellColor;
+						ctx.fillStyle = MapEditor.colors.cell;
 					}
-					ctx.fillRect(j * cellSpace, i * cellSpace, cellSize, cellSize);
+	
+					ctx.fillRect(x, y, cellSize, cellSize);
+	
+					if(role && role !== "default") {
+						const firstLetter = role.substr(0, 1).toUpperCase();
+						ctx.fillStyle = MapEditor.colors[`${role}Text`];
+						ctx.font = `${Math.floor(cellSpace * 0.8)}px sans-serif`;
+						ctx.textAlign = "center";
+						ctx.textBaseline = "middle";
+						ctx.fillText(firstLetter, x + cellSize / 2, y + cellSize / 2);
+					}
+	
+					if(cellData.sound && cellData.sound !== "none") {
+						const img = this.soundImg,
+							m = (cellSpace * 0.4) / Math.max(img.height, img.width),
+							w = Math.round(img.width * m),
+							h = Math.round(img.height * m);
+						ctx.drawImage(this.soundImg, x, y , w, h);
+					}
 				}
 			}
 	
 			[
-				[this.hoverData, "hoverColor"],
-				[this._selectedCell, "selectedColor"]
+				[this.hoverData, "hover"],
+				[this._selectedCell, "selected"]
 			].forEach((item) => {
 				if(!item[0]) return;
 				const lineWidth = MapEditor.cellSpacing * 3,
 					x = item[0].column * cellSpace + lineWidth / 2,
 					y = item[0].row * cellSpace + lineWidth / 2;
 	
-				ctx.strokeStyle = MapEditor[item[1]];
+				ctx.strokeStyle = MapEditor.colors[item[1]];
 				ctx.lineWidth = lineWidth;
 				ctx.beginPath();
 				ctx.rect(x, y, cellSize - lineWidth, cellSize - lineWidth);
@@ -1364,6 +1419,8 @@
 		destroy(){
 			cancelAnimationFrame(this._renderGridRAFId);
 			this._eventsController.destroy();
+			this._soundImg = null;
+			return null;
 		}
 	}
 	
@@ -1371,12 +1428,16 @@
 	
 	Object.assign(MapEditor, {
 		cellSpacing: 1,
-		cellColor: "#ccc",
-		hoverColor: "#222",
-		selectedColor: "#3288e6",
-		trackColor: "#efefef",
-		bgColor: "#777",
-		mapSize: 25
+		mapSize: 25,
+		colors: {
+			bg: "#777",
+			cell: "#ccc",
+			hover: "#222",
+			track: "#efefef",
+			selected: "#3288e6",
+			startText: "#009688",
+			finishText: "#D50000"
+		}
 	});
 	
 	
@@ -5104,6 +5165,116 @@
 	  return toString.call(arr) == '[object Array]';
 	};
 
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const EventsController = __webpack_require__(1),
+		deepcopy = __webpack_require__(22),
+		vex = window.vex;
+	
+	
+	class CellSettingsDialog {
+		static get defaults(){
+			return {
+				el: null
+			}
+		}
+	
+		static getModalContent(params = {}, soundList){
+			return `
+				<section data-hidden="${!params.track}">
+					<h3>cell role</h3>
+					<label>
+						<input type="radio" checked name="role" value="default">
+						default
+					</label>
+					<label>
+						<input type="radio" name="role" value="start">
+						start
+					</label>
+					<label>
+						<input type="radio" name="role" value="finish">
+						finish
+					</label>
+				</section>
+				<section>
+					<h3>sound</h3>
+					<label>
+						<select name="sound">
+							<option>none</option>
+							${soundList || ""}
+						</select>
+					</label>
+				</section>
+				
+			`
+		}
+	
+	
+		constructor(params, projectManager){
+			this._params = Object.assign({}, CellSettingsDialog.defaults, params);
+			this.projectManager = projectManager;
+			this._attachEvents();
+		}
+	
+		get el(){
+			return this._params.el;
+		}
+	
+		_attachEvents() {
+			const ec = this._ec = new EventsController();
+	
+			this._onClick = this._onClick.bind(this);
+			ec.add(this.el, "click", this._onClick);
+			return this;
+		}
+	
+		_getSoundList() {
+			const list = (this.projectManager.modules.get("soundList").sounds || []).join("</option><option>");
+			return list ? `<option>${list}</option>` : "";
+		}
+	
+		_onClick(){
+			let cellCoords = this.projectManager.modules.get("mapEditor")._selectedCell;
+			if(!cellCoords) return;
+	
+			cellCoords = Object.assign({}, cellCoords);
+			const levelData = deepcopy(this.projectManager.activeLevelData),
+				cellData = levelData.data[cellCoords.row][cellCoords.column];
+	
+			vex.dialog.buttons.YES.text = "Save";
+	
+			this._tmID = setTimeout(() => {
+				vex.dialog.open({
+					className: CellSettingsDialog.MODAL_CLASSNAME,
+					input: CellSettingsDialog.getModalContent(cellData, this._getSoundList()),
+					callback: (data) => {
+						if(data) {
+							Object.assign(cellData, data);
+							this.projectManager._updateActiveLevelData(levelData);
+						}
+					}
+				});
+			}, 0);
+		}
+	
+		destroy(){
+			if(this._dialog) this._dialog.close();
+			clearTimeout(this._tmID);
+			this._ec.destroy();
+			return null;
+		}
+	}
+	
+	
+	Object.assign(CellSettingsDialog, {
+		MODAL_CLASSNAME: "vex-theme-os cell-settings-modal"
+	});
+	
+	
+	module.exports = CellSettingsDialog;
 
 /***/ }
 /******/ ]);

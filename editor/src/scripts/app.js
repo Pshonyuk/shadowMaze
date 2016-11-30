@@ -57,6 +57,13 @@ window.projectManager = new ProjectManager({
 				undoEl: document.querySelector(".history.undo"),
 				redoEl: document.querySelector(".history.redo")
 			}
+		},
+		{
+			name: "cellSettingsDialog",
+			module: require("./modules/CellSettingsDialog"),
+			params: {
+				el: document.querySelector("[data-settings='cell']")
+			}
 		}
 	]
 });

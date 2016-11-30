@@ -1,0 +1,25 @@
+@import "colors";
+
+.vex {
+  overflow: hidden;
+
+  .vex-dialog-input {
+    section {
+      border: 1px solid map_get($colors, "mainFont");
+      border-radius: 7px;
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      text-transform: capitalize;
+      user-select: none;
+
+      h3 {
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      select {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
