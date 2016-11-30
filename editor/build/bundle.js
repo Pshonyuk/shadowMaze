@@ -759,53 +759,7 @@
 	});
 
 /***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const EventsController = __webpack_require__(1);
-	
-	
-	module.exports = function () {
-		const ec = new EventsController();
-	
-		ec.add(window, "popstate", (e) => {
-			const state = e.state;
-			if(state && state.action && state.data){
-				let stateEvent = new Event("changestate", {
-					bubbles: true
-				});
-				stateEvent.action = state.action;
-				stateEvent.state = state.data;
-				window.dispatchEvent(stateEvent);
-			}
-		});
-	
-		return {
-			pushState(action, data= {}){
-				window.history.pushState({
-					action,
-					data
-				}, null);
-				return this;
-			},
-	
-			back(){
-				window.history.back();
-				return this;
-			},
-	
-			forward(){
-				window.history.forward();
-				return this;
-			},
-	
-			clear(){
-				return this;
-			}
-		};
-	}();
-
-/***/ },
+/* 10 */,
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1103,7 +1057,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const EventsController = __webpack_require__(1),
-		history = __webpack_require__(10),
 		path = nodeRequire("path"),
 		fs = nodeRequire("fs");
 	
@@ -1120,7 +1073,6 @@
 			this.projectManager = projectManager;
 	
 			this._generateEditorData();
-			history.pushState("editorData", this.editorData);
 	
 			this._createCanvas()
 				._positioningCanvas()
@@ -1184,6 +1136,7 @@
 				}
 			}
 	
+			this._updateSelectedCell(null);
 			return this;
 		}
 	
@@ -1286,6 +1239,14 @@
 			return null;
 		}
 	
+		_updateSelectedCell(cellData) {
+			const currentCellData = this._selectedCell || {},
+				ev = new Event("editor-select-cell", { bubbles: true });
+	
+			this._selectedCell = ev.cellData = cellData && (cellData.row === currentCellData.row && cellData.column === currentCellData.column) ? null : cellData;
+			document.dispatchEvent(ev);
+		}
+	
 		_onChangeState(e){
 			switch (e.action){
 				case "editorData":
@@ -1313,19 +1274,13 @@
 					cell.track = !e.ctrlKey;
 				}
 			} else if (e.button === 0) {
-				const currentCellData = this.cellData || {},
-					cellData = this._getCellByEvent(e),
-					ev = new Event("editor-select-cell", { bubbles: true });
-	
-				this._cellData = ev.cellData = cellData.row === currentCellData.row && cellData.column === currentCellData.column ? null : cellData;
-				document.dispatchEvent(ev);
+				this._updateSelectedCell(this._getCellByEvent(e));
 			}
 		}
 	
 		_onMouseUp(e){
 			if(e.button === 2){
 				this._mouseRightButton = false;
-				history.pushState("editorData", this.editorData);
 				this._updateLevelData();
 			}
 		}
@@ -1379,17 +1334,22 @@
 				}
 			}
 	
-			if(this.hoverData){
+			[
+				[this.hoverData, "hoverColor"],
+				[this._selectedCell, "selectedColor"]
+			].forEach((item) => {
+				if(!item[0]) return;
 				const lineWidth = MapEditor.cellSpacing * 3,
-					x = this.hoverData.column * cellSpace + lineWidth / 2,
-					y = this.hoverData.row * cellSpace + lineWidth / 2;
+					x = item[0].column * cellSpace + lineWidth / 2,
+					y = item[0].row * cellSpace + lineWidth / 2;
 	
-				ctx.strokeStyle = MapEditor.hoverColor;
+				ctx.strokeStyle = MapEditor[item[1]];
 				ctx.lineWidth = lineWidth;
 				ctx.beginPath();
 				ctx.rect(x, y, cellSize - lineWidth, cellSize - lineWidth);
 				ctx.stroke();
-			}
+			});
+	
 			return this;
 		}
 	
@@ -1405,6 +1365,7 @@
 		cellSpacing: 1,
 		cellColor: "#ccc",
 		hoverColor: "#222",
+		selectedColor: "#3288e6",
 		trackColor: "#efefef",
 		bgColor: "#777",
 		mapSize: 25

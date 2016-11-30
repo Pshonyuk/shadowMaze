@@ -1,5 +1,4 @@
 const EventsController = require("../libs/EventsController"),
-	history = require("../history"),
 	path = nodeRequire("path"),
 	fs = nodeRequire("fs");
 
@@ -16,7 +15,6 @@ class MapEditor {
 		this.projectManager = projectManager;
 
 		this._generateEditorData();
-		history.pushState("editorData", this.editorData);
 
 		this._createCanvas()
 			._positioningCanvas()
@@ -80,6 +78,7 @@ class MapEditor {
 			}
 		}
 
+		this._updateSelectedCell(null);
 		return this;
 	}
 
@@ -182,6 +181,14 @@ class MapEditor {
 		return null;
 	}
 
+	_updateSelectedCell(cellData) {
+		const currentCellData = this._selectedCell || {},
+			ev = new Event("editor-select-cell", { bubbles: true });
+
+		this._selectedCell = ev.cellData = cellData && (cellData.row === currentCellData.row && cellData.column === currentCellData.column) ? null : cellData;
+		document.dispatchEvent(ev);
+	}
+
 	_onChangeState(e){
 		switch (e.action){
 			case "editorData":
@@ -209,19 +216,13 @@ class MapEditor {
 				cell.track = !e.ctrlKey;
 			}
 		} else if (e.button === 0) {
-			const currentCellData = this.cellData || {},
-				cellData = this._getCellByEvent(e),
-				ev = new Event("editor-select-cell", { bubbles: true });
-
-			this._cellData = ev.cellData = cellData.row === currentCellData.row && cellData.column === currentCellData.column ? null : cellData;
-			document.dispatchEvent(ev);
+			this._updateSelectedCell(this._getCellByEvent(e));
 		}
 	}
 
 	_onMouseUp(e){
 		if(e.button === 2){
 			this._mouseRightButton = false;
-			history.pushState("editorData", this.editorData);
 			this._updateLevelData();
 		}
 	}
@@ -275,17 +276,22 @@ class MapEditor {
 			}
 		}
 
-		if(this.hoverData){
+		[
+			[this.hoverData, "hoverColor"],
+			[this._selectedCell, "selectedColor"]
+		].forEach((item) => {
+			if(!item[0]) return;
 			const lineWidth = MapEditor.cellSpacing * 3,
-				x = this.hoverData.column * cellSpace + lineWidth / 2,
-				y = this.hoverData.row * cellSpace + lineWidth / 2;
+				x = item[0].column * cellSpace + lineWidth / 2,
+				y = item[0].row * cellSpace + lineWidth / 2;
 
-			ctx.strokeStyle = MapEditor.hoverColor;
+			ctx.strokeStyle = MapEditor[item[1]];
 			ctx.lineWidth = lineWidth;
 			ctx.beginPath();
 			ctx.rect(x, y, cellSize - lineWidth, cellSize - lineWidth);
 			ctx.stroke();
-		}
+		});
+
 		return this;
 	}
 
@@ -301,6 +307,7 @@ Object.assign(MapEditor, {
 	cellSpacing: 1,
 	cellColor: "#ccc",
 	hoverColor: "#222",
+	selectedColor: "#3288e6",
 	trackColor: "#efefef",
 	bgColor: "#777",
 	mapSize: 25
