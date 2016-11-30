@@ -49,6 +49,14 @@ window.projectManager = new ProjectManager({
 			params: {
 				listContainer: document.querySelector(".sound-list")
 			}
+		},
+		{
+			name: "history",
+			module: require("./modules/History"),
+			params: {
+				undoEl: document.querySelector(".history.undo"),
+				redoEl: document.querySelector(".history.redo")
+			}
 		}
 	]
 });
