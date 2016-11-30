@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "F:\\Projects\\shadowMaze\\editor\\assets";
+/******/ 	__webpack_require__.p = "/projects/shadowMaze/editor/assets";
 /******/ 	// webpack-livereload-plugin
 /******/ 	(function() {
 /******/ 	  if (typeof window === "undefined") { return };
