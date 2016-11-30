@@ -20,6 +20,10 @@
       select {
         text-transform: capitalize;
       }
+
+      *:focus {
+        outline: none;
+      }
     }
   }
 }

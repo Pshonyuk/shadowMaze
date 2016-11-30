@@ -4,7 +4,7 @@ const fs = nodeRequire("fs"),
 
 
 class ProjectManager {
-	static get defaults(){
+	static get defaults() {
 		return {
 			workPath: "./game",
 			sourceDirName: "source",
@@ -13,38 +13,59 @@ class ProjectManager {
 		}
 	}
 
+	static _validateLevelData(data) {
+		if(!data) return data;
+		const roles = new Map();
+		roles.set("start", false);
+		roles.set("finish", false);
 
-	constructor(params = {}){
+		data.data.forEach((row) => {
+			row && row.forEach((cell) => {
+				for(let [key, val] of roles) {
+					if(cell.role === key && !val && cell.track){
+						roles.set(key, true);
+						return;
+					}
+				}
+				cell.role = "default";
+			});
+		});
+
+		return data;
+	}
+
+
+	constructor(params = {}) {
 		this._params = Object.assign({}, ProjectManager.defaults, params);
 		this.modules = new Map();
 		this._prepareFileSystem();
 	}
 
-	get workPath(){
+	get workPath() {
 		return path.resolve(this._params.workPath);
 	}
 
-	get sourcePath(){
+	get sourcePath() {
 		return path.join(this.workPath, this._params.sourceDirName);
 	}
 
-	get entryPoint(){
+	get entryPoint() {
 		return path.join(this.workPath, this._params.entryPoint);
 	}
 
-	get paramsModules(){
+	get paramsModules() {
 		return this._params.modules || [];
 	}
 
-	get gameData(){
+	get gameData() {
 		return this._gameData;
 	}
 
-	get levels(){
+	get levels() {
 		return this.gameData.levels;
 	}
 
-	set levels(lvs){
+	set levels(lvs) {
 		let gameData = Object.assign({}, this.gameData),
 			activeLevel = this.activeLevel;
 		gameData.levels = lvs.slice(0).filter((v, i, s) => s.indexOf(v) === i);
@@ -59,7 +80,7 @@ class ProjectManager {
 		return this._activeLevel;
 	}
 
-	set activeLevel(val){
+	set activeLevel(val) {
 		this._activeLevel = val;
 		const ev = new Event("update-active-level", { bubbles: true });
 		ev.activeLevel = this.activeLevel;
@@ -67,11 +88,11 @@ class ProjectManager {
 		this._readLevelData(this._updateActiveLevelData.bind(this));
 	}
 
-	get activeLevelData(){
+	get activeLevelData() {
 		return this._activeLevelData;
 	}
 
-	get levelFilePath(){
+	get levelFilePath() {
 		let level = this.activeLevel;
 		if(level){
 			return path.resolve(path.join(this.workPath, level + ".json"));
@@ -108,7 +129,7 @@ class ProjectManager {
 		return this;
 	}
 
-	_readGameData(cb){
+	_readGameData(cb) {
 		fs.readFile(this.entryPoint, (err, data) => {
 			const createException = (err) => {
 				console.error(err);
@@ -132,7 +153,7 @@ class ProjectManager {
 		return this;
 	}
 
-	_writeGameData(cb){
+	_writeGameData(cb) {
 		fs.writeFile(this.entryPoint, JSON.stringify(this.gameData), (err) => {
 			if(err) console.error(err);
 			if(cb) cb.call(this, err);
@@ -140,31 +161,16 @@ class ProjectManager {
 		return this;
 	}
 
-	_updateActiveLevelData(data){
-		this._activeLevelData = data;
+	_updateActiveLevelData(data) {
+		this._activeLevelData =  ProjectManager._validateLevelData(data);
 		const ev = new Event("update-active-level-data", { bubbles: true });
-		let isStart, isFinish;
-
-		data && data.data.forEach((row) => {
-			row && row.forEach((cellData) => {
-				if(cellData.role === "start" && !isStart){
-					isStart = true;
-					return;
-				} else if(cellData.role === "finish" && !isFinish){
-					isFinish = true;
-					return;
-				}
-				cellData.role = "default";
-			})
-		});
-
 		ev.activeLevelData = Object.assign({}, this.activeLevelData);
 		document.dispatchEvent(ev);
 		this._writeLevelData();
 		return this;
 	}
 
-	_readLevelData(cb){
+	_readLevelData(cb) {
 		const levelFilePath = this.levelFilePath;
 		if(!levelFilePath) return typeof cb === "function" && cb(null);
 
@@ -186,7 +192,7 @@ class ProjectManager {
 		});
 	}
 
-	_writeLevelData(){
+	_writeLevelData() {
 		const levelFilePath = this.levelFilePath;
 		if(!levelFilePath) return;
 
@@ -195,7 +201,7 @@ class ProjectManager {
 		});
 	}
 
-	_loadModules(){
+	_loadModules() {
 		const paramsModules = this.paramsModules;
 
 		for(let paramsModule of paramsModules){

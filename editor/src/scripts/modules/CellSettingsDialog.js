@@ -15,15 +15,15 @@ class CellSettingsDialog {
 			<section data-hidden="${!params.track}">
 				<h3>cell role</h3>
 				<label>
-					<input type="radio" checked name="role" value="default">
+					<input type="radio" ${!params.role || params.role === "default" ? "checked" : ""} name="role" value="default">
 					default
 				</label>
 				<label>
-					<input type="radio" name="role" value="start">
+					<input type="radio" ${params.role === "start" ? "checked" : ""} name="role" value="start">
 					start
 				</label>
 				<label>
-					<input type="radio" name="role" value="finish">
+					<input type="radio" ${params.role === "finish" ? "checked" : ""} name="role" value="finish">
 					finish
 				</label>
 			</section>
@@ -36,8 +36,18 @@ class CellSettingsDialog {
 					</select>
 				</label>
 			</section>
-			
 		`
+	}
+
+	static _clearCellsRole(role, data) {
+		if(!data || !role || role === "default") return data;
+		data.data.forEach((row) => {
+			row && row.forEach((cell) => {
+				if(cell.role === role) cell.role = "default";
+			});
+		});
+
+		return data;
 	}
 
 
@@ -59,9 +69,23 @@ class CellSettingsDialog {
 		return this;
 	}
 
-	_getSoundList() {
-		const list = (this.projectManager.modules.get("soundList").sounds || []).join("</option><option>");
-		return list ? `<option>${list}</option>` : "";
+	_getSoundList(cellData) {
+		const soundList = this.projectManager.modules.get("soundList").sounds || [],
+			splitter = "</option><option>";
+		let tpl = "", soundIndex;
+
+		if(!cellData.sound || cellData.sound === "none" || (soundIndex = soundList.indexOf(cellData.sound)) === -1) {
+			tpl = (soundList).join(splitter);
+			return tpl ? `<option>${tpl}</option>` : "";
+		} else if (soundIndex !== -1) {
+			tpl += `<option>${soundList.slice(0, soundIndex).join(splitter)}`;
+			tpl = `${tpl.substr(0, tpl.length - 1)} selected>${soundList.slice(soundIndex, 1)}</option>`;
+			if(soundIndex < soundList.length - 1) {
+				tpl += `${soundList.slice(soundIndex + 1).join(splitter)}</option>`;
+			}
+			return tpl;
+		}
+		return "";
 	}
 
 	_onClick(){
@@ -69,7 +93,7 @@ class CellSettingsDialog {
 		if(!cellCoords) return;
 
 		cellCoords = Object.assign({}, cellCoords);
-		const levelData = deepcopy(this.projectManager.activeLevelData),
+		let levelData = deepcopy(this.projectManager.activeLevelData),
 			cellData = levelData.data[cellCoords.row][cellCoords.column];
 
 		vex.dialog.buttons.YES.text = "Save";
@@ -77,9 +101,10 @@ class CellSettingsDialog {
 		this._tmID = setTimeout(() => {
 			vex.dialog.open({
 				className: CellSettingsDialog.MODAL_CLASSNAME,
-				input: CellSettingsDialog.getModalContent(cellData, this._getSoundList()),
+				input: CellSettingsDialog.getModalContent(cellData, this._getSoundList(cellData)),
 				callback: (data) => {
 					if(data) {
+						levelData = CellSettingsDialog._clearCellsRole(data.role, levelData);
 						Object.assign(cellData, data);
 						this.projectManager._updateActiveLevelData(levelData);
 					}
