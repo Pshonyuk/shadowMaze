@@ -71,6 +71,13 @@ window.projectManager = new ProjectManager({
 			params: {
 				el: document.querySelector("[data-settings='general']")
 			}
+		},
+		{
+			name: "runner",
+			module: require("./modules/Runner"),
+			params: {
+
+			}
 		}
 	]
 });
