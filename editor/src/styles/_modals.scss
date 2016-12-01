@@ -12,13 +12,26 @@
       text-transform: capitalize;
       user-select: none;
 
-      h3 {
+      h3, h5 {
         margin: 0;
         text-transform: uppercase;
       }
 
       select {
         text-transform: capitalize;
+      }
+
+      .sound-volume {
+        padding-top: 20px;
+      }
+
+      .sound-direction {
+        padding-top: 20px;
+
+        input[type=number] {
+          display: inline-block !important;
+          width: 32.4% !important;
+        }
       }
 
       *:focus {

@@ -279,6 +279,7 @@ class MapEditor {
 		for(let i = 0; i < size; i++){
 			for(let j = 0; j < size; j++){
 				const cellData = editorData[i][j],
+					soundName = cellData.sound && cellData.sound.name && cellData.sound.name !== "none",
 					role = cellData.role,
 					x = j * cellSpace,
 					y = i * cellSpace;
@@ -294,15 +295,15 @@ class MapEditor {
 				if(role && role !== "default") {
 					const firstLetter = role.substr(0, 1).toUpperCase();
 					ctx.fillStyle = MapEditor.colors[`${role}Text`];
-					ctx.font = `${Math.floor(cellSpace * 0.6)}px sans-serif`;
+					ctx.font = `italic normal 700 ${Math.floor(cellSpace * 0.6)}px sans-serif`;
 					ctx.textAlign = "center";
 					ctx.textBaseline = "middle";
 					ctx.fillText(firstLetter, x + cellSize / 2, y + cellSize / 2);
 				}
 
-				if(cellData.sound && cellData.sound !== "none") {
+				if(soundName) {
 					const img = this.soundImg,
-						m = (cellSpace * 0.3) / Math.max(img.height, img.width),
+						m = (cellSpace * 0.32) / Math.max(img.height, img.width),
 						w = Math.round(img.width * m),
 						h = Math.round(img.height * m),
 						xImg = x + cellSize - w - MapEditor.cellSpacing * 2,
@@ -351,7 +352,7 @@ Object.assign(MapEditor, {
 		track: "#efefef",
 		selected: "#3288e6",
 		startText: "#009688",
-		finishText: "#D50000"
+		finishText: "#009688"
 	}
 });
 

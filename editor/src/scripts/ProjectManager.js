@@ -21,13 +21,25 @@ class ProjectManager {
 
 		data.data.forEach((row) => {
 			row && row.forEach((cell) => {
+				if(!cell.sound || cell.sound.name === "none") {
+					delete cell.sound;
+				} else {
+					const sound = cell.sound && typeof cell.sound === "object" ? cell.sound : Object.create(null),
+						direction = sound.direction || (sound.direction = Object.create(null));
+
+					sound.volume = Math.max(0, Math.min(100, +sound.volume));
+					direction.x = +direction.x || 1;
+					direction.y = +direction.y || 0;
+					direction.z = +direction.z || 0;
+
+				}
 				for(let [key, val] of roles) {
 					if(cell.role === key && !val && cell.track){
 						roles.set(key, true);
 						return;
 					}
 				}
-				cell.role = "default";
+				delete cell.role;
 			});
 		});
 
@@ -211,10 +223,6 @@ class ProjectManager {
 	}
 }
 
-
-Object.assign(ProjectManager, {
-
-});
 
 
 module.exports = ProjectManager;

@@ -11,6 +11,7 @@ class CellSettingsDialog {
 	}
 
 	static getModalContent(params = {}, soundList){
+		const soundData = params.sound;
 		return `
 			<section data-hidden="${!params.track}">
 				<h3>cell role</h3>
@@ -30,11 +31,21 @@ class CellSettingsDialog {
 			<section>
 				<h3>sound</h3>
 				<label>
-					<select name="sound">
+					<select name="sound[name]">
 						<option>none</option>
 						${soundList || ""}
 					</select>
 				</label>
+				<div class="sound-volume">
+					<h3>volume</h3>
+					<input name="sound[volume]" type="number" value="${soundData ? soundData.volume : 100}" min="0" max="100">
+				</div>
+				<div class="sound-direction">
+					<h3>direction vector</h3>
+					<input name="sound[direction][x]" type="number" value="${soundData ? soundData.direction.x : 1}">
+					<input name="sound[direction][y]" type="number" value="${soundData ? soundData.direction.y : 0}">
+					<input name="sound[direction][z]" type="number" value="${soundData ? soundData.direction.z : 0}">
+				</div>
 			</section>
 		`
 	}
@@ -71,17 +82,20 @@ class CellSettingsDialog {
 
 	_getSoundList(cellData) {
 		const soundList = this.projectManager.modules.get("soundList").sounds || [],
+			soundName = cellData.sound && cellData.sound.name,
 			splitter = "</option><option>";
 		let tpl = "", soundIndex;
 
-		if(!cellData.sound || cellData.sound === "none" || (soundIndex = soundList.indexOf(cellData.sound)) === -1) {
+		if(!soundName || (soundIndex = soundList.indexOf(soundName)) === -1) {
 			tpl = (soundList).join(splitter);
 			return tpl ? `<option>${tpl}</option>` : "";
 		} else if (soundIndex !== -1) {
-			tpl += `<option>${soundList.slice(0, soundIndex).join(splitter)}`;
-			tpl = `${tpl.substr(0, tpl.length - 1)} selected>${soundList.slice(soundIndex, 1)}</option>`;
-			if(soundIndex < soundList.length - 1) {
-				tpl += `${soundList.slice(soundIndex + 1).join(splitter)}</option>`;
+			for(let i = 0, l = soundList.length; i < l; i++) {
+				if(i === soundIndex) {
+					tpl += `<option selected>${soundList[i]}</option>`;
+					continue;
+				}
+				tpl += `<option>${soundList[i]}</option>`;
 			}
 			return tpl;
 		}
@@ -104,6 +118,17 @@ class CellSettingsDialog {
 				input: CellSettingsDialog.getModalContent(cellData, this._getSoundList(cellData)),
 				callback: (data) => {
 					if(data) {
+						if(data && data.sound) {
+							if(!data.sound.name || data.sound.name === "none") {
+								data.sound = null;
+							} else {
+								const sound = data.sound;
+								sound.volume *= 1;
+								sound.direction.x *= 1;
+								sound.direction.y *= 1;
+								sound.direction.z *= 1;
+							}
+						}
 						levelData = CellSettingsDialog._clearCellsRole(data.role, levelData);
 						Object.assign(cellData, data);
 						this.projectManager._updateActiveLevelData(levelData);
