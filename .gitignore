@@ -62,6 +62,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-editor/game
 
-/bin/
+/editor/app/game-data/
+/editor/bin/

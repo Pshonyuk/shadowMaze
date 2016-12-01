@@ -57,7 +57,7 @@ class MapEditor {
 
 	_createSoundImg() {
 		this._soundImg = new Image();
-		this._soundImg.src = "../../assets/img/sound.svg";
+		this._soundImg.src = "./assets/img/sound.svg";
 		return this;
 	}
 

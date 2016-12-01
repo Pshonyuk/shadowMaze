@@ -1,0 +1,20 @@
+{
+  "app_name": "editor",
+  "author": "V. Pshonyuk",
+  "dependencies": {
+    "deepcopy": "^0.6.3",
+    "mousetrap": "^1.6.0",
+    "vex-dialog": "^1.0.6",
+    "vex-js": "^3.0.0"
+  },
+  "description": "Levels editor for shadowMaze",
+  "keywords": [
+    "shadowMaze",
+    "shadowMaze",
+    "Editor"
+  ],
+  "license": "MIT",
+  "main": "./index.html",
+  "name": "shadowMaze-Editor",
+  "version": "0.0.1"
+}

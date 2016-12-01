@@ -1,6 +1,5 @@
 const fs = nodeRequire("fs"),
-	path = nodeRequire("path"),
-	traverse = nodeRequire("traverse");
+	path = nodeRequire("path");
 
 
 class ProjectManager {

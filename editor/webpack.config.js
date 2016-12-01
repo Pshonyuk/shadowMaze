@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const dev = process.env.NODE_ENV !== "production";
-const LiveReloadPlugin = require('webpack-livereload-plugin');
+const LiveReloadPlugin = require("webpack-livereload-plugin");
 
 let plugins = [
 	new webpack.optimize.OccurenceOrderPlugin()
@@ -9,7 +9,7 @@ let plugins = [
 
 
 if(dev){
-	plugins.push( new LiveReloadPlugin({
+	plugins.push(new LiveReloadPlugin({
 		appendScriptTag: true
 	}));
 }
@@ -18,10 +18,10 @@ if(dev){
 module.exports = {
 	entry: [
 		// "babel-polyfill",
-		"./src/scripts/app.js"
+		"./app/src/scripts/app.js"
 	],
 	output: {
-		path: path.join(__dirname, "dist"),
+		path: path.join(__dirname, "./app/dist/"),
 		filename: "bundle.js",
 		publicPath: path.join(__dirname, "assets")
 	},
@@ -30,10 +30,10 @@ module.exports = {
 		loaders: [
 			// {
 			// 	test: /\.js$/,
-			// 	include: path.join(__dirname, 'src/scripts'),
-			// 	loader: 'babel-loader',
+			// 	include: path.join(__dirname, "src/scripts"),
+			// 	loader: "babel-loader",
 			// 	query: {
-			// 		presets: ['es2015']
+			// 		presets: ["es2015"]
 			// 	}
 			// },
 			// {
@@ -42,21 +42,21 @@ module.exports = {
 			// },
 			{
 				include: [
-					path.resolve(__dirname, "src/styles")
+					path.resolve(__dirname, "./app/src/styles")
 				],
 				test: /\.scss$/,
 				loaders: ["style", "css", "sass"]
 			},
 			{
 				include: [
-					path.resolve(__dirname, "src")
+					path.resolve(__dirname, "./app/src")
 				],
 				test: /\.json$/,
 				loader: "json"
 			},
 			{
-				exclude: [
-					path.resolve(__dirname, "node_modules")
+				include: [
+					path.resolve(__dirname, "./app/assets")
 				],
 				test: /\.woff$/,
 				loader: "url"
