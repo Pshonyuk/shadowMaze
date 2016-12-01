@@ -1,58 +1,47 @@
 {
-  "main": "index.html",
-  "name": "shadowMaze-Editor",
-  "description": "Levels editor for shadowMaze",
-  "version": "0.0.1",
-  "keywords": [
-    "shadowMaze",
-    "shadowMaze Editor"
-  ],
-  "window": {
-    "title": "shadowMaze Editor",
-    "icon": "icon.png",
-    "toolbar": false,
-    "frame": true,
-    "width": 825,
-    "height": 570,
-    "min_width": 795,
-    "min_height": 565
-  },
-  "nwjsBuilder": {
-    "productName": "ShadowMaze Editor",
-    "productVersion": "0.0.1",
-    "fileDescription": "",
-    "copyright": "",
-    "internalName": "",
-    "fileVersion": "",
-    "comments": "",
-    "companyName": "",
-    "legalTrademarks": "",
-    "originalFilename": "",
-    "privateBuild": "",
-    "specialBuild": "",
-    "bundleIdentifier": ""
-  },
-  "author": "V. Pshonyuk",
-  "license": "MIT",
-  "dependencies": {
-    "deepcopy": "^0.6.3",
-    "mousetrap": "^1.6.0",
-    "traverse": "^0.6.6",
-    "vex-dialog": "^1.0.6",
-    "vex-js": "^3.0.0"
-  },
-  "scripts": {
-    "run": "nw ../editor"
-  },
-  "devDependencies": {
-    "css-loader": "^0.25.0",
-    "json-loader": "^0.5.4",
-    "node-sass": "^3.11.2",
-    "nwjs-builder": "^1.13.1",
-    "sass-loader": "^4.0.2",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.3",
-    "webpack-livereload-plugin": "^0.9.0"
-  }
+    "app_name": "editor",
+    "author": "V. Pshonyuk",
+    "dependencies": {
+        "deepcopy": "^0.6.3",
+        "mousetrap": "^1.6.0",
+        "traverse": "^0.6.6",
+        "vex-dialog": "^1.0.6",
+        "vex-js": "^3.0.0"
+    },
+    "description": "Levels editor for shadowMaze",
+    "devDependencies": {
+        "css-loader": "^0.25.0",
+        "json-loader": "^0.5.4",
+        "node-sass": "^3.11.2",
+        "nwjs-builder": "^1.13.1",
+        "sass-loader": "^4.0.2",
+        "style-loader": "^0.13.1",
+        "url-loader": "^0.5.7",
+        "webpack": "^1.13.3",
+        "webpack-livereload-plugin": "^0.9.0"
+    },
+    "keywords": [
+        "shadowMaze",
+        "shadowMaze",
+        "Editor"
+    ],
+    "license": "MIT",
+    "main": "index.html",
+    "name": "shadowMaze-Editor",
+    "scripts": {
+        "run": "nw ../editor"
+    },
+    "version": "0.0.1",
+    "webkit": {},
+    "window": {
+        "frame": true,
+        "height": 570,
+        "icon": "icon.png",
+        "id": "editor",
+        "min_height": 565,
+        "min_width": 795,
+        "title": "shadowMaze Editor",
+        "toolbar": false,
+        "width": 825
+    }
 }

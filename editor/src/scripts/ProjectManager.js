@@ -6,7 +6,7 @@ const fs = nodeRequire("fs"),
 class ProjectManager {
 	static get defaults() {
 		return {
-			workPath: "./game",
+			workPath: "./game-data",
 			sourceDirName: "source",
 			entryPoint: "data.json",
 			modules: null

@@ -1,13 +1,26 @@
-const path = require("path"),
-	NWB = require('nwjs-builder');
+const NwBuilder = require("nw-builder"),
+	path = require("path"),
+	glob = require("simple-glob");
 
-NWB.commands.nwbuild(path.resolve("."), {
-	"platforms": "linux64",
-	"outputDir": path.resolve("./build/bin"),
-	"version": "0.18.8"
-	// "withFfmpeg": true,
-	// "production": true
-}, (err) => {
-	if(err) return console.error(err);
-	console.log("Done!!");
+
+const nw = new NwBuilder({
+	files: glob([
+		"./package.json",
+		"./index.html",
+		"./assets/**/**",
+		"./dist/**"
+	]),
+	platforms: ["linux64", "win64"],
+	flavor: "normal",
+	buildDir: path.resolve("../bin"),
+	cacheDir: path.resolve("../bin/cache"),
+	zip: false
+});
+
+
+nw.on("log",  console.log);
+nw.build().then(function () {
+	console.log("all done!");
+}).catch(function (error) {
+	console.error(error);
 });

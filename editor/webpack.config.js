@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const dev = process.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV !== "production";
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 let plugins = [
@@ -21,7 +21,7 @@ module.exports = {
 		"./src/scripts/app.js"
 	],
 	output: {
-		path: path.join(__dirname, "build"),
+		path: path.join(__dirname, "dist"),
 		filename: "bundle.js",
 		publicPath: path.join(__dirname, "assets")
 	},
