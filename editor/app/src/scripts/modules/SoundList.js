@@ -145,7 +145,7 @@ class SoundList {
 
 
 Object.assign(SoundList, {
-	soundFormats: ["mp3", "ogg", "wav"]
+	soundFormats: ["ogg", "wav"]
 });
 
 
