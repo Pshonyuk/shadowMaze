@@ -1,1 +1,2 @@
-# shadowMaze
+# ShadowMaze
+Editor Binaries: [win64](https://drive.google.com/file/d/0B7XxaaXmqaJuNFE2eDZOLVZtN1k/view?usp=sharing), [linux64](https://drive.google.com/file/d/0B7XxaaXmqaJuUHhrT0p4MEhuaTg/view?usp=sharing)
