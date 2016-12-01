@@ -64,6 +64,13 @@ window.projectManager = new ProjectManager({
 			params: {
 				el: document.querySelector("[data-settings='cell']")
 			}
+		},
+		{
+			name: "generalSettingsDialog",
+			module: require("./modules/GeneralSettingsDialog"),
+			params: {
+				el: document.querySelector("[data-settings='general']")
+			}
 		}
 	]
 });

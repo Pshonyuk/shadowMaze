@@ -30,12 +30,10 @@ class CellSettingsDialog {
 			</section>
 			<section>
 				<h3>sound</h3>
-				<label>
-					<select name="sound[name]">
-						<option>none</option>
-						${soundList || ""}
-					</select>
-				</label>
+				<select name="sound[name]">
+					<option>none</option>
+					${soundList || ""}
+				</select>
 				<div class="sound-volume">
 					<h3>volume</h3>
 					<input name="sound[volume]" type="number" value="${soundData ? soundData.volume : 100}" min="0" max="100">
@@ -118,17 +116,6 @@ class CellSettingsDialog {
 				input: CellSettingsDialog.getModalContent(cellData, this._getSoundList(cellData)),
 				callback: (data) => {
 					if(data) {
-						if(data && data.sound) {
-							if(!data.sound.name || data.sound.name === "none") {
-								data.sound = null;
-							} else {
-								const sound = data.sound;
-								sound.volume *= 1;
-								sound.direction.x *= 1;
-								sound.direction.y *= 1;
-								sound.direction.z *= 1;
-							}
-						}
 						levelData = CellSettingsDialog._clearCellsRole(data.role, levelData);
 						Object.assign(cellData, data);
 						this.projectManager._updateActiveLevelData(levelData);

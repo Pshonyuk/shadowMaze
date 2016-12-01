@@ -15,7 +15,9 @@ class ProjectManager {
 
 	static _validateLevelData(data) {
 		if(!data) return data;
-		const roles = new Map();
+		const roles = new Map(),
+			generalParams = data.generalParams;
+
 		roles.set("start", false);
 		roles.set("finish", false);
 
@@ -42,6 +44,15 @@ class ProjectManager {
 				delete cell.role;
 			});
 		});
+
+		if(generalParams) {
+			if(generalParams.footfall) {
+				generalParams.footfall.volume = Math.max(0, Math.min(100, +generalParams.footfall.volume));
+			}
+			if(generalParams.soundAisle) {
+				generalParams.soundAisle.volume = Math.max(0, Math.min(100, +generalParams.soundAisle.volume));
+			}
+		}
 
 		return data;
 	}
