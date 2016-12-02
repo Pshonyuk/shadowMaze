@@ -76,7 +76,7 @@ window.projectManager = new ProjectManager({
 			name: "runner",
 			module: require("./modules/Runner"),
 			params: {
-
+				el: document.querySelector(".run")
 			}
 		}
 	]

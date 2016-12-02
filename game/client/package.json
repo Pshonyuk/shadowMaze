@@ -1,0 +1,14 @@
+{
+  "app_name": "editor",
+  "author": "V. Pshonyuk",
+  "dependencies": {
+    "babylonjs": "^2.4.1"
+  },
+  "description": "shadowMaze Game",
+  "keywords": [
+    "shadowMaze"
+  ],
+  "license": "MIT",
+  "name": "shadowMaze-Editor",
+  "version": "0.0.1"
+}

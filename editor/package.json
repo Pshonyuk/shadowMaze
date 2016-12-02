@@ -40,5 +40,8 @@
     "toolbar": false,
     "width": 825,
     "kiosk": true
+  },
+  "dependencies": {
+    "babylonjs": "^2.4.1"
   }
 }

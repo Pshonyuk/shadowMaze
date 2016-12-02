@@ -3,7 +3,6 @@
   "author": "V. Pshonyuk",
   "dependencies": {
     "deepcopy": "^0.6.3",
-    "howler": "^2.0.1",
     "mousetrap": "^1.6.0",
     "vex-dialog": "^1.0.6",
     "vex-js": "^3.0.0"
